@@ -1,77 +1,144 @@
-import { useState } from 'react';
-import { Card, Container, Col, Row, Button, Form, FormControl, Dropdown } from 'react-bootstrap'
+import { useState, useEffect } from 'react';
+import { Card, Container, Col, Row, Form, FormControl, Dropdown } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 
+const cardData = [
+    {
+        id: 1,
+        title: `Breadth First and Depth First Algorithms`,
+        body: `A simple simulation of Breadth First Traversal and Depth First traversal
+            on an undirected graph created by the user.`,
+        name: `BFS and DFS`,
+        type: "graph",
+        link: "/graphVisualizer/bfsdfs"
+    },
+    {
+        id: 2,
+        title: `Dijkstra's Shortest Path Algorithm`,
+        body: `A simulation of Djikstra's Shortest Path Algorithm and finding the shortest
+            paths from the chosen source vertex to all the nodes.`,
+        name: `Dijkstra's Algorithm`,
+        type: "graph",
+        link: "/graphVisualizer/dijkstra"
+    },
+    {
+        id: 3,
+        title: `Kruskal's Minimal Spanning Tree`,
+        body: `A simple simulation Kruskal's Algorithm for finding the Minimal Spanning
+            Tree of a connected undirected weighted graph.`,
+        name: `Kruskal's MST`,
+        type: "graph",
+        link: "/graphVisualizer/KruskalMST"
+    },
+    {
+        id: 4,
+        title: `Searching Visualizer`,
+        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+            for understanding them better.`,
+        name: `Searching Algorithms`,
+        type: "searching",
+        link: "/searchingVisualizer"
+    },
+    {
+        id: 5,
+        title: `Sorting Visualizer`,
+        body: `Simulation of Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort on
+            randomly chosen data values.`,
+        name: `Sorting Algorithms`,
+        type: "sorting",
+        link: "/sortingVisualizer"
+    },
+]
+
+const capitalize = (item) => item.charAt(0).toUpperCase() + item.slice(1)
+
+const options = [...new Set(cardData.map(item => item.type))];
 
 export default function VisualizerCards() {
-    const [cardState, setCardState] = useState()
+    const [selectedOptions, setSelectedOptions] = useState([])
+    const [showCard, setShowCard] = useState(cardData)
+
+    const onOptionClicked = value => () => {
+        setSelectedOptions(selectedOptions => [...new Set([...selectedOptions, value])])
+    }
+
+    const removeOption = value => () => {
+        setSelectedOptions(selectedOptions => selectedOptions.filter(item => item !== value))
+    }
+
+    const searchText = (e) => {
+        let regexString = e.target.value;
+        let regexp = new RegExp(regexString, "gi");
+        setShowCard(cardData.filter(item => item.title.search(regexp) !== -1))
+    }
+
+    useEffect(() => {
+        if (selectedOptions && selectedOptions.length) {
+            setShowCard(cardData.filter(item => selectedOptions.indexOf(item.type) !== -1))
+        } else {
+            setShowCard(cardData)
+        }
+    }, [selectedOptions])
 
     return (
-        <Container className="mt-5 mb-5">
+        <Container className="mt-5 mb-5" id="visualizer">
             <Row>
-                <Col xs={12} md={6} lg={4} >
+                <Col xs={12} md={3} lg={1} >
                     <h1>Visulizer</h1>
                 </Col>
             </Row>
             <Row>
-                <Col xs={12} sm={6} md={6} lg={9} className="mb-2 mt-2">
+                <Col sm={12} md={6} lg={9} className="mb-2 mt-2">
                     <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                        <FormControl type="text" onChange={searchText} placeholder="Search" className="mr-md-2 mx-auto mx-md-0" />
                     </Form>
                 </Col>
-                <Col xs={12} sm={6} md={6} lg={3} className="mb-2 mt-2 text-sm-right">
+                <Col sm={12} md={6} lg={3} className="mb-2 mt-2 text-md-right">
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Dropdown Button
+                            Algorithm
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Searching</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Sorting</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Graph</Dropdown.Item>
+                            {
+                                options.map((option, index) => (
+                                    <Dropdown.Item onClick={onOptionClicked(option)} as="button" key={index}>
+                                        {capitalize(option)}
+                                    </Dropdown.Item>
+                                ))
+                            }
                         </Dropdown.Menu>
                     </Dropdown>
                 </Col>
             </Row>
+            <Row className="p-3">
+                {
+                    selectedOptions.map((item, index) => (
+                        <span id="items" key={index}>
+                            {capitalize(item)} <button onClick={removeOption(item)} key={index} type="button" className="close"><span>&times;</span></button>
+                        </span>
+                    ))
+                }
+            </Row>
             <Row>
-                <Col xs={12} md={6} lg={4} >
-                    <Card style={{ width: '18rem', margin: '20px auto' }}>
-                        <Card.Img variant="top" src="/img/Carousel1.jpeg" />
-                        <Card.Body>
-                            <Card.Title>Card Title</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={12} md={6} lg={4}>
-                    <Card style={{ width: '18rem', margin: '20px auto' }}>
-                        <Card.Img variant="top" src="/img/Carousel1.jpeg" />
-                        <Card.Body>
-                            <Card.Title>Card Title</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-                <Col xs={12} md={6} lg={4}>
-                    <Card style={{ width: '18rem', margin: '20px auto' }}>
-                        <Card.Img variant="top" src="/img/Carousel1.jpeg" />
-                        <Card.Body>
-                            <Card.Title>Card Title</Card.Title>
-                            <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
-                            </Card.Text>
-                            <Button variant="primary">Go somewhere</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
+                {
+                    showCard.map(item => {
+                        return (
+                            <Col xs={12} md={6} lg={4} key={item.id} >
+                                <Card style={{ width: '18rem', margin: '20px auto' }}>
+                                    <Card.Img variant="top" src="/img/Carousel1.jpeg" />
+                                    <Card.Body>
+                                        <Card.Title>{item.title}</Card.Title>
+                                        <Card.Text>
+                                            {item.body}
+                                        </Card.Text>
+                                        <NavLink to={item.link} className="button button4" variant="primary">{item.name}</NavLink>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        )
+                    })
+                }
             </Row>
         </Container >
     );

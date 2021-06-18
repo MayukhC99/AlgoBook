@@ -7,6 +7,16 @@
   pointer-events: none;
 }
 
+.card {
+  transition: 0.3s all;
+}
+
+.card:hover {
+  box-shadow: 5px 6px 28px -5px rgba(39, 39, 39, 0.84);
+  -webkit-box-shadow: 5px 6px 28px -5px rgba(39, 39, 39, 0.84);
+  -moz-box-shadow: 5px 6px 28px -5px rgba(39, 39, 39, 0.84);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
