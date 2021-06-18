@@ -4,7 +4,7 @@ export default function HomeCarousel() {
     return (
         <div>
             <Carousel>
-                <Carousel.Item interval={2000} style={{height: 'calc(100vh - 200px)', overflow: 'hidden'}}>
+                <Carousel.Item interval={2000} style={{ height: 'calc(100vh - 150px)', minHeight: '450px', overflow: 'hidden' }}>
                     <img
                         className="d-block w-100"
                         src="/img/Carousel1.jpeg"
@@ -16,7 +16,7 @@ export default function HomeCarousel() {
                         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
-                <Carousel.Item interval={2000} style={{height: 'calc(100vh - 200px)', overflow: 'hidden'}}>
+                <Carousel.Item interval={2000} style={{ height: 'calc(100vh - 150px)', minHeight: '450px', overflow: 'hidden' }}>
                     <img
                         className="d-block w-100"
                         src="/img/Carousel2.jpeg"
@@ -28,7 +28,7 @@ export default function HomeCarousel() {
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                     </Carousel.Caption>
                 </Carousel.Item>
-                <Carousel.Item interval={2000} style={{height: 'calc(100vh - 200px)', overflow: 'hidden'}}>
+                <Carousel.Item interval={2000} style={{ height: 'calc(100vh - 150px)', minHeight: '450px', overflow: 'hidden' }}>
                     <img
                         className="d-block w-100"
                         src="/img/Carousel3.png"
