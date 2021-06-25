@@ -32,15 +32,33 @@ const cardData = [
     },
     {
         id: 4,
-        title: `Searching Visualizer`,
+        title: `Linear Search Algorithm`,
         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
             for understanding them better.`,
-        name: `Searching Algorithms`,
+        name: `Linear Search`,
         type: "searching",
-        link: "/searchingVisualizer"
+        link: "/searchingVisualizer/linearsearch"
     },
     {
         id: 5,
+        title: `Binary Search Algorithm`,
+        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+            for understanding them better.`,
+        name: `Binary Search`,
+        type: "searching",
+        link: "/searchingVisualizer/binarysearch"
+    },
+    {
+        id: 6,
+        title: `Interpolation Search Algorithm`,
+        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+            for understanding them better.`,
+        name: `Interpolation Search`,
+        type: "searching",
+        link: "/searchingVisualizer/interpolationsearch"
+    },
+    {
+        id: 7,
         title: `Sorting Visualizer`,
         body: `Simulation of Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort on
             randomly chosen data values.`,

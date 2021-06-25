@@ -27,7 +27,7 @@ export class Canvas extends Component {
             }
         }
         this.setState((prev) => {
-            points: prev.points.push({
+            prev.points.push({
                 x: x,
                 y: y
             })
@@ -67,7 +67,7 @@ export class Canvas extends Component {
                 return
             }
             this.setState((prev) => {
-                edges: prev.edges.push({
+                prev.edges.push({
                     u: v1,
                     v: v2
                 })
@@ -306,8 +306,3 @@ export class Canvas extends Component {
 }
 
 export default Canvas
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
