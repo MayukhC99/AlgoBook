@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NodeEnv=Production node server/index.js",
-    "dev": "cross-env NodeEnv=Development nodemon server/index.js"
+    "dev": "cross-env NodeEnv=Development nodemon server/index.js",
+    "build-dev": "cd algorithm-visualizer && npm run build"
   },
   "keywords": [],
   "author": "",
