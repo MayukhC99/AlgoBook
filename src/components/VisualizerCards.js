@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Card, Container, Col, Row, Form, FormControl, Dropdown } from 'react-bootstrap'
+import { Card, Container, Col, Row, Form, FormControl, Dropdown, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as farHeart } from "@fortawesome/fontawesome-free-regular"
+import { faHeart } from "@fortawesome/fontawesome-free-solid"
 
 const cardData = [
     {
@@ -68,6 +71,8 @@ const cardData = [
     },
 ]
 
+const Favorites = [`Interpolation Search Algorithm`, `Sorting Visualizer`]
+
 const capitalize = (item) => item.charAt(0).toUpperCase() + item.slice(1)
 
 const options = [...new Set(cardData.map(item => item.type))];
@@ -75,6 +80,7 @@ const options = [...new Set(cardData.map(item => item.type))];
 export default function VisualizerCards() {
     const [selectedOptions, setSelectedOptions] = useState([])
     const [showCard, setShowCard] = useState(cardData)
+    const [favIcons, setFavIcons] = useState(Favorites)
 
     const onOptionClicked = value => () => {
         setSelectedOptions(selectedOptions => [...new Set([...selectedOptions, value])])
@@ -88,6 +94,26 @@ export default function VisualizerCards() {
         let regexString = e.target.value;
         let regexp = new RegExp(regexString, "gi");
         setShowCard(cardData.filter(item => item.title.search(regexp) !== -1))
+    }
+
+    const changeFavIcons = (e) => {
+        if ('favName' in e.target.dataset) {
+            if (Favorites.indexOf(e.target.dataset.favName) !== -1) {
+                Favorites.splice(Favorites.indexOf(e.target.dataset.favName), 1)
+                setFavIcons(prev => prev.filter(item => item !== e.target.dataset.favName))
+            } else {
+                Favorites.push(e.target.dataset.favName)
+                setFavIcons(prev => [...prev, e.target.dataset.favName])
+            }
+        } else if ('favName' in e.target.parentNode.dataset) {
+            if (Favorites.indexOf(e.target.parentNode.dataset.favName) !== -1) {
+                Favorites.splice(Favorites.indexOf(e.target.dataset.favName), 1)
+                setFavIcons(prev => prev.filter(item => item !== e.target.parentNode.dataset.favName))
+            } else {
+                Favorites.push(e.target.parentNode.dataset.favName)
+                setFavIcons(prev => [...prev, e.target.parentNode.dataset.favName])
+            }
+        }
     }
 
     useEffect(() => {
@@ -145,6 +171,26 @@ export default function VisualizerCards() {
                             <Col xs={12} md={6} lg={4} key={item.id} >
                                 <Card style={{ width: '18rem', margin: '20px auto' }}>
                                     <Card.Img variant="top" src="/img/Carousel1.jpeg" />
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={
+                                            favIcons.indexOf(item.title) === -1 ?
+                                                <Tooltip id="top">
+                                                    Add to favorites.
+                                                </Tooltip>
+                                                :
+                                                <Tooltip id="top">
+                                                    Remove from favorites.
+                                                </Tooltip>
+                                        }
+                                    >
+                                        {
+                                            favIcons.indexOf(item.title) !== -1 ?
+                                                <FontAwesomeIcon onClick={changeFavIcons} id="solidFavIcon" className="fav-icon" data-fav-name={item.title} icon={faHeart} />
+                                                :
+                                                <FontAwesomeIcon onClick={changeFavIcons} id="regFavIcon" className="fav-icon" data-fav-name={item.title} icon={farHeart} />
+                                        }
+                                    </OverlayTrigger>
                                     <Card.Body>
                                         <Card.Title>{item.title}</Card.Title>
                                         <Card.Text>
