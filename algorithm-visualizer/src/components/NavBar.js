@@ -20,6 +20,8 @@ export default function NavBar() {
                         </NavLink>
                         <NavLink to="/signIn" className="btn btn-outline-primary mr-2 mb-2 mb-0">Login</NavLink>
                         <NavLink to="/signUp" className="btn btn-primary mr-2 mb-2 mb-0">Sign Up</NavLink>
+                        <NavLink to="/account" className="btn btn-outline-primary mr-2 mb-2 mb-0">My Account</NavLink>
+                        <NavLink to="/logout" className="btn btn-primary mr-2 mb-2 mb-0">Logout</NavLink>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

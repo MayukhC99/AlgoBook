@@ -1,0 +1,35 @@
+.pics {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+#cover-pic {
+  height: calc(70vh - 60px);
+  min-height: 200px;
+  width: 100%;
+  background-color: khaki;
+  border-radius: 0 0 25px 25px;
+}
+
+#profile-pic {
+  width: 200px;
+  height: 200px;
+  background-color: lawngreen;
+  position: absolute;
+  top: calc(60vh - 60px);
+  border: 5px solid white;
+  border-radius: 50%;
+}
+
+.tab-content {
+  width: 100%;
+}
+
+@media (max-height: 370px) {
+  #profile-pic {
+    top: 163px;
+  }
+}
