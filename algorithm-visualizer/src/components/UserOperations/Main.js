@@ -18,10 +18,12 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   h1 {
+    font-family: 'Comic Sans MS', cursive;
     font-size: 65px;
     font-weight: 900;
     font-style: italic;
-    color: #98FB98;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
     @media (max-width: 900px) {
       display: none;
     }
