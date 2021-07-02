@@ -28,4 +28,9 @@ app.use(passport.session());
 app.use(express.static(path.resolve(__dirname, '../algorithm-visualizer/build')));
 
 
+//Define routes
+app.use('/root', require('./routes/root').route);
+app.use('/signup', require('./routes/signup').route);
+app.use('/login', require('./routes/login').route);
+
 app.listen(port,()=>{console.log(`Mode: ${process.env.NodeEnv} hosted on port ${port}`)});
