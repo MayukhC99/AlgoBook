@@ -1,80 +1,88 @@
-import { useState, useEffect } from 'react';
-import { Card, Container, Col, Row, Form, FormControl, Dropdown } from 'react-bootstrap'
+import { useState, useEffect, useContext } from 'react';
+import { CardContext } from '../Context/CardContext';
+import { Card, Container, Col, Row, Form, FormControl, Dropdown, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as farHeart } from "@fortawesome/fontawesome-free-regular"
+import { faHeart } from "@fortawesome/fontawesome-free-solid"
 
-const cardData = [
-    {
-        id: 1,
-        title: `Breadth First and Depth First Algorithms`,
-        body: `A simple simulation of Breadth First Traversal and Depth First traversal
-            on an undirected graph created by the user.`,
-        name: `BFS and DFS`,
-        type: "graph",
-        link: "/graphVisualizer/bfsdfs"
-    },
-    {
-        id: 2,
-        title: `Dijkstra's Shortest Path Algorithm`,
-        body: `A simulation of Djikstra's Shortest Path Algorithm and finding the shortest
-            paths from the chosen source vertex to all the nodes.`,
-        name: `Dijkstra's Algorithm`,
-        type: "graph",
-        link: "/graphVisualizer/dijkstra"
-    },
-    {
-        id: 3,
-        title: `Kruskal's Minimal Spanning Tree`,
-        body: `A simple simulation Kruskal's Algorithm for finding the Minimal Spanning
-            Tree of a connected undirected weighted graph.`,
-        name: `Kruskal's MST`,
-        type: "graph",
-        link: "/graphVisualizer/KruskalMST"
-    },
-    {
-        id: 4,
-        title: `Linear Search Algorithm`,
-        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-            for understanding them better.`,
-        name: `Linear Search`,
-        type: "searching",
-        link: "/searchingVisualizer/linearsearch"
-    },
-    {
-        id: 5,
-        title: `Binary Search Algorithm`,
-        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-            for understanding them better.`,
-        name: `Binary Search`,
-        type: "searching",
-        link: "/searchingVisualizer/binarysearch"
-    },
-    {
-        id: 6,
-        title: `Interpolation Search Algorithm`,
-        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-            for understanding them better.`,
-        name: `Interpolation Search`,
-        type: "searching",
-        link: "/searchingVisualizer/interpolationsearch"
-    },
-    {
-        id: 7,
-        title: `Sorting Visualizer`,
-        body: `Simulation of Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort on
-            randomly chosen data values.`,
-        name: `Sorting Algorithms`,
-        type: "sorting",
-        link: "/sortingVisualizer"
-    },
-]
+// const cardData = [
+//     {
+//         id: 1,
+//         title: `Breadth First and Depth First Algorithms`,
+//         body: `A simple simulation of Breadth First Traversal and Depth First traversal
+//             on an undirected graph created by the user.`,
+//         name: `BFS and DFS`,
+//         type: "graph",
+//         link: "/graphVisualizer/bfsdfs"
+//     },
+//     {
+//         id: 2,
+//         title: `Dijkstra's Shortest Path Algorithm`,
+//         body: `A simulation of Djikstra's Shortest Path Algorithm and finding the shortest
+//             paths from the chosen source vertex to all the nodes.`,
+//         name: `Dijkstra's Algorithm`,
+//         type: "graph",
+//         link: "/graphVisualizer/dijkstra"
+//     },
+//     {
+//         id: 3,
+//         title: `Kruskal's Minimal Spanning Tree`,
+//         body: `A simple simulation Kruskal's Algorithm for finding the Minimal Spanning
+//             Tree of a connected undirected weighted graph.`,
+//         name: `Kruskal's MST`,
+//         type: "graph",
+//         link: "/graphVisualizer/KruskalMST"
+//     },
+//     {
+//         id: 4,
+//         title: `Linear Search Algorithm`,
+//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+//             for understanding them better.`,
+//         name: `Linear Search`,
+//         type: "searching",
+//         link: "/searchingVisualizer/linearsearch"
+//     },
+//     {
+//         id: 5,
+//         title: `Binary Search Algorithm`,
+//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+//             for understanding them better.`,
+//         name: `Binary Search`,
+//         type: "searching",
+//         link: "/searchingVisualizer/binarysearch"
+//     },
+//     {
+//         id: 6,
+//         title: `Interpolation Search Algorithm`,
+//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+//             for understanding them better.`,
+//         name: `Interpolation Search`,
+//         type: "searching",
+//         link: "/searchingVisualizer/interpolationsearch"
+//     },
+//     {
+//         id: 7,
+//         title: `Sorting Visualizer`,
+//         body: `Simulation of Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort on
+//             randomly chosen data values.`,
+//         name: `Sorting Algorithms`,
+//         type: "sorting",
+//         link: "/sortingVisualizer"
+//     },
+// ]
+
+// const Favorites = [`Interpolation Search Algorithm`, `Sorting Visualizer`]
 
 const capitalize = (item) => item.charAt(0).toUpperCase() + item.slice(1)
 
-const options = [...new Set(cardData.map(item => item.type))];
 
 export default function VisualizerCards() {
+    const { cardData, Favorites, changeFavIcons } = useContext(CardContext)
     const [selectedOptions, setSelectedOptions] = useState([])
     const [showCard, setShowCard] = useState(cardData)
+    console.log(Favorites)
+    const options = [...new Set(cardData.map(item => item.type))];
 
     const onOptionClicked = value => () => {
         setSelectedOptions(selectedOptions => [...new Set([...selectedOptions, value])])
@@ -145,6 +153,26 @@ export default function VisualizerCards() {
                             <Col xs={12} md={6} lg={4} key={item.id} >
                                 <Card style={{ width: '18rem', margin: '20px auto' }}>
                                     <Card.Img variant="top" src="/img/Carousel1.jpeg" />
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={
+                                            Favorites.indexOf(item.title) === -1 ?
+                                                <Tooltip id="top">
+                                                    Add to favorites.
+                                                </Tooltip>
+                                                :
+                                                <Tooltip id="top">
+                                                    Remove from favorites.
+                                                </Tooltip>
+                                        }
+                                    >
+                                        {
+                                            Favorites.indexOf(item.title) !== -1 ?
+                                                <FontAwesomeIcon onClick={changeFavIcons} id="solidFavIcon" className="fav-icon" data-fav-name={item.title} icon={faHeart} />
+                                                :
+                                                <FontAwesomeIcon onClick={changeFavIcons} id="regFavIcon" className="fav-icon" data-fav-name={item.title} icon={farHeart} />
+                                        }
+                                    </OverlayTrigger>
                                     <Card.Body>
                                         <Card.Title>{item.title}</Card.Title>
                                         <Card.Text>
