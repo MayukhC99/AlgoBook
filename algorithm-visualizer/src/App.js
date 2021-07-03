@@ -8,6 +8,7 @@ import SortingVisualizer from './components/Sorting/SortingVisualizer'
 import ChatComponent from './components/Chat_Room/ChatComponent'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
+import UserForm from './components/UserOperations/UserForm'
 import MyAccount from './components/Account/MyAccount'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import './App.css';
@@ -113,10 +114,10 @@ function App() {
                         <Route path="/searchingVisualizer" component={SearchingVisualizer} />
                         <Route path="/sortingVisualizer" component={SortingVisualizer} />
                         <Route path="/chat_room" component={ChatComponent} />
-                        <Route path="/signIn" component={SignIn} />
-                        <Route path="/signUp" component={SignUp} />
+                        <Route path="/signIn" component={() => <UserForm loginFlag={true} />} />
+                        <Route path="/signUp" component={() => <UserForm loginFlag={false} />} />
                         <Route path="/account" component={MyAccount} />
-                        {/* <Redirect to="/home"></Redirect> */}
+                        <Redirect to="/home"></Redirect>
                     </CardContext.Provider>
                 </Switch>
             </Router>
