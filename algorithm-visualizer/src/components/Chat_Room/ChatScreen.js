@@ -1,16 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from "@fortawesome/fontawesome-free-solid"
+import { v4 as uuidv4 } from 'uuid';
 
 import { io } from 'socket.io-client';
 
-const socket = io();
-
-socket.on('connect', () => {
-    // alert('connected socket');
-});
-
-let count = 15;
+let socket = undefined;
 
 export default function ChatScreen(props) {
 
@@ -18,9 +13,24 @@ export default function ChatScreen(props) {
     const messagesEndRef = useRef(null)
 
     useEffect(() => {
+        socket = io();
+
+        socket.on('connect', () => {
+            console.log('socket connected');
+        })
+        
+    }, []);
+
+    useEffect(() => {
         if (props.targetComp) {
             let message = props.messageTyped.find(item => item.name === props.targetComp)
             setTypedMessage(message.message)
+            socket.emit('join-room', props.targetComp);
+
+            socket.on('receive-message', (message, room) => {
+                console.log('Meesage received client ', message, room);
+                props.addMessage(message);
+            });
         }
     }, [props.targetComp])
 
@@ -51,12 +61,12 @@ export default function ChatScreen(props) {
     const messageSubmit = (e) => {
         e.preventDefault()
         let newMessage = {
-            id: count,
+            id: uuidv4(),
             user: "You",
             text: e.target.childNodes[0].value
         }
-        count++;
         setTypedMessage("")
+        socket.emit('send-message', newMessage, props.targetComp);
         props.addMessage(newMessage)
     }
 
@@ -88,11 +98,16 @@ export default function ChatScreen(props) {
                                             (
                                                 message.user !== "You" ?
                                                     <div className="others-message" key={message.id}>
-                                                        <div>{message.text}</div>
+                                                        <div>
+                                                            <span className="username">{message.user}:</span><br />
+                                                            {message.text}
+                                                        </div>
                                                     </div>
                                                     :
                                                     <div className="my-message" key={message.id}>
-                                                        <div>{message.text}</div>
+                                                        <div>
+                                                            {message.text}
+                                                        </div>
                                                     </div>
                                             )
                                         )

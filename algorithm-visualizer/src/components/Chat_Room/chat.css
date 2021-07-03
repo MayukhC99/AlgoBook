@@ -92,6 +92,12 @@
   text-align: left;
 }
 
+#all-message .username {
+  font-size: 8px;
+  font-weight: bold;
+  opacity: 0.5;
+}
+
 #all-message .my-message {
   display: flex;
   flex-direction: column;
