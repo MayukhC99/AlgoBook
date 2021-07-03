@@ -81,7 +81,6 @@ export default function VisualizerCards() {
     const { cardData, Favorites, changeFavIcons } = useContext(CardContext)
     const [selectedOptions, setSelectedOptions] = useState([])
     const [showCard, setShowCard] = useState(cardData)
-    console.log(Favorites)
     const options = [...new Set(cardData.map(item => item.type))];
 
     const onOptionClicked = value => () => {

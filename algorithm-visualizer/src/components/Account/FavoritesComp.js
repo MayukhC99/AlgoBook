@@ -13,11 +13,11 @@ export default function FavoritesComp() {
         <Container>
             <Row>
                 {
-                    cardData.map(item => {
-                        return (
-                            Favorites.length === 0 ?
-                                <h4>You don't have any Favorites</h4>
-                                :
+                    Favorites.length === 0 ?
+                        <h4>You don't have any Favorites</h4>
+                        :
+                        cardData.map(item => {
+                            return (
                                 Favorites.indexOf(item.title) !== -1 &&
                                 <Col xs={12} md={6} lg={4} key={item.id} >
                                     <Card style={{ width: '18rem', margin: '20px auto' }}>
@@ -41,8 +41,8 @@ export default function FavoritesComp() {
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                        )
-                    })
+                            )
+                        })
                 }
             </Row>
         </Container>
