@@ -117,7 +117,7 @@ function App() {
                         <Route path="/signIn" component={() => <UserForm loginFlag={true} />} />
                         <Route path="/signUp" component={() => <UserForm loginFlag={false} />} />
                         <Route path="/account" component={MyAccount} />
-                        {/* <Redirect to="/home"></Redirect> */}
+                        <Redirect to="/home"></Redirect>
                     </CardContext.Provider>
                 </Switch>
             </Router>
