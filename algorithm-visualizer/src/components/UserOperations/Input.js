@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = ({ type, placeholder }) => {
+const Input = ({ type, placeholder, name }) => {
   return (
     <Container>
       <StyledInput
         placeholder={placeholder && placeholder}
         type={type ? type : "text"}
+        name={ name ? name : undefined}
         required
         autocomplete="off"
       />

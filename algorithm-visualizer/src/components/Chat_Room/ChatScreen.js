@@ -2,6 +2,14 @@ import { useState, useEffect, useRef } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from "@fortawesome/fontawesome-free-solid"
 
+import { io } from 'socket.io-client';
+
+const socket = io();
+
+socket.on('connect', () => {
+    // alert('connected socket');
+});
+
 let count = 15;
 
 export default function ChatScreen(props) {
