@@ -1,9 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/img/logo.png";
+import axios from 'axios'
 import Input from "./Input";
 
 const Signup = ({ setLoginPage }) => {
+
+  const signUpHandalar = (e) => {
+    e.preventDefault()
+    const formData = new FormData(document.getElementById("signUpForm"))
+    const payload = {
+      username: formData.get('username'),
+      email_id: formData.get('email_id'),
+      first_name: formData.get('first_name'),
+      last_name: formData.get('last_name'),
+      password: formData.get('password'),
+      confirmPassword: formData.get('confirmPassword'),
+    }
+    axios.post("/api/signup/getin", payload)
+    .then(res => {
+      if(res.data) {
+        setLoginPage(true)
+      } else {
+        alert("Something went wrong")
+      }
+    })
+  } 
+
   return (
     <Container>
       <LogoWrapper>
@@ -12,13 +35,15 @@ const Signup = ({ setLoginPage }) => {
           Algo<span>Book</span>
         </h3>
       </LogoWrapper>
-      <Form>
+      <Form id="signUpForm" onSubmit={signUpHandalar}>
         <h3>Sign Up</h3>
-        <Input placeholder="Full Name" />
-        <Input type="email" placeholder="Email" />
-        <Input type="password" placeholder="Password" />
-        <Input type="password" placeholder="Confrim Password" />
-        <button>Sign Up</button>
+        <Input placeholder="username" name="username" />
+        <Input type="email" name="email_id" placeholder="Email" />
+        <Input type="text" name="first_name" placeholder="First Name" />
+        <Input type="text" name="last_name" placeholder="Last Name" />
+        <Input type="password" name="password" placeholder="Password" />
+        <Input type="password" name="confirmPassword" placeholder="Confrim Password" />
+        <button type="submit">Sign Up</button>
       </Form>
       <div>
         <Terms>

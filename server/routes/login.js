@@ -3,8 +3,8 @@ const passport = require('../passport').passport;
 const route = express.Router();
 
 route.post('/getin',passport.authenticate('local', {
-    failureRedirect: '/login/failure',
-    successRedirect: '/login/success'
+    failureRedirect: '/api/login/failure',
+    successRedirect: '/api/login/success'
 }));
 
 route.get('/logout',(req,res)=>{
@@ -14,12 +14,12 @@ route.get('/logout',(req,res)=>{
 
 route.get('/failure',(req,res)=>{
     console.log('Failed to Login');
-    res.send(undefined);
+    res.redirect('/signIn')
 })
 
 route.get('/success',(req,res)=>{
     console.log('Login Successful');
-    res.send(req.user.username);
+    res.redirect('/');
 })
 
 module.exports = {

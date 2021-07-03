@@ -3,6 +3,7 @@ const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('./passport').passport;
 const path = require('path');
+const http = require('http');
 
 //setting up process enviornment
 dotenv.config({ path: path.join(__dirname, '../config/config.env') });
@@ -12,6 +13,11 @@ require('../config/connection_db').connect_with_mongoDB();
 
 const app = express();
 const port = process.env.PORT || 8000;
+
+const server= http.createServer(app);
+const io = require('socket.io')(server);
+//Include Socket to function anonymously 
+require('./webSocket')(io)
 
 //decrypting json and urlencoded
 app.use(express.json());
@@ -29,8 +35,12 @@ app.use(express.static(path.resolve(__dirname, '../algorithm-visualizer/build'))
 
 
 //Define routes
-app.use('/root', require('./routes/root').route);
-app.use('/signup', require('./routes/signup').route);
-app.use('/login', require('./routes/login').route);
+app.use('/api/root', require('./routes/root').route);
+app.use('/api/signup', require('./routes/signup').route);
+app.use('/api/login', require('./routes/login').route);
 
-app.listen(port,()=>{console.log(`Mode: ${process.env.NodeEnv} hosted on port ${port}`)});
+app.get('/*',(req, res) => {
+    res.sendFile(path.resolve(__dirname + '/../algorithm-visualizer/build/index.html'));
+})
+
+server.listen(port,()=>{console.log(`Mode: ${process.env.NodeEnv} hosted on port ${port}`)});

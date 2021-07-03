@@ -12,11 +12,11 @@ const Login = ({ setLoginPage }) => {
           Algo<span>Book</span>
         </h3>
       </LogoWrapper>
-      <Form>
+      <Form action="/api/login/getin" method="POST">
         <h3>Login</h3>
-        <Input type="text" placeholder="username" />
-        <Input type="password" placeholder="Password" />
-        <button>Login</button>
+        <Input type="text" name="username" placeholder="username" />
+        <Input type="password" name="password" placeholder="Password" />
+        <button type="submit">Login</button>
       </Form>
       <div>
         <h4>

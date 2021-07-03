@@ -77,6 +77,17 @@ route.post('/upload/profile_image',(req,res)=>{
     })
 })
 
+route.get('/verify_user', (req, res) => {
+    if(req.user){
+        if (req.user.username === 'admin') {
+            return res.json({'user': req.user});
+        }
+        return res.json({'user': req.user});
+    }
+
+    return res.json(undefined);
+})
+
 
 module.exports = {
     route

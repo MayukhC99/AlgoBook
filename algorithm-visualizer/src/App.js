@@ -1,5 +1,6 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { CardContext } from './Context/CardContext'
+import axios from 'axios'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import GraphVisualizer from './components/Graph/GraphVisualizer'
@@ -84,6 +85,14 @@ const favIcons = [`Interpolation Search Algorithm`, `Sorting Visualizer`]
 function App() {
 
     const [Favorites, setFavorites] = useState(favIcons)
+    const [loginFlag, setLoginFlag] = useState(null)
+
+    useEffect(() => {
+        axios.get("/api/root/verify_user")
+        .then(res => {
+            setLoginFlag(res.data)
+        })
+    }, []);
 
     const changeFavIcons = (e) => {
         if ('favName' in e.target.dataset) {
@@ -106,18 +115,19 @@ function App() {
     return (
         <div className="App">
             <Router>
-                <NavBar />
+                <NavBar loginFlag={loginFlag} />
                 <Switch>
                     <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
+                        <Route exact path="/" component={Home} />
                         <Route path="/home" component={Home} />
                         <Route path="/graphVisualizer" component={GraphVisualizer} />
                         <Route path="/searchingVisualizer" component={SearchingVisualizer} />
                         <Route path="/sortingVisualizer" component={SortingVisualizer} />
                         <Route path="/chat_room" component={ChatComponent} />
-                        <Route path="/signIn" component={() => <UserForm loginFlag={true} />} />
-                        <Route path="/signUp" component={() => <UserForm loginFlag={false} />} />
+                        <Route path="/signIn" component={() => <UserForm loginFlag={loginFlag} />} />
+                        <Route path="/signUp" component={() => <UserForm loginFlag={loginFlag} />} />
                         <Route path="/account" component={MyAccount} />
-                        <Redirect to="/home"></Redirect>
+                        {/* <Redirect to="/home"></Redirect> */}
                     </CardContext.Provider>
                 </Switch>
             </Router>
