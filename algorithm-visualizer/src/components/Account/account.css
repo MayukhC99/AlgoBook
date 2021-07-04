@@ -72,6 +72,20 @@
   text-align: center;
 }
 
+#layer {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background-color: rgba(68, 68, 68, 0.5);
+}
+
+#upload_btn {
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
 @media (max-height: 370px) {
   #profile-pic {
     top: 163px;

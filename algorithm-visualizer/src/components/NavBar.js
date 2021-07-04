@@ -23,7 +23,7 @@ export default function NavBar({ loginFlag }) {
                                     </NavLink>
                                     <Dropdown>
                                         <Dropdown.Toggle variant="light" id="dropdown-basic">
-                                            Algorithm
+                                            {loginFlag.user.first_name}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu style={{ left: '-50px' }}>
                                             <Dropdown.Item as="button">
