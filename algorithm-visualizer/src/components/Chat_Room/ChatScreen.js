@@ -6,10 +6,12 @@ import { v4 as uuidv4 } from 'uuid';
 import { io } from 'socket.io-client';
 
 let socket = undefined;
+let onlineCount = [];
 
 export default function ChatScreen(props) {
 
     const [typedMessage, setTypedMessage] = useState("")
+    const [onlineValue, setOnlineValue] = useState(0);
     const messagesEndRef = useRef(null)
     const { userDetails } = props;
     const username = ((userDetails || {}).user || {}).username;
@@ -19,21 +21,45 @@ export default function ChatScreen(props) {
 
         socket.on('connect', () => {
             console.log('socket connected');
-        })
+        });
+
+        return () => {
+            //On component destruction, leave room it has joined
+            socket.emit('leave-room', username);
+        }
         
     }, []);
 
     useEffect(() => {
+        const receiveListner = (message, room) => {
+            console.log('Meesage received client ', message, room);
+            props.addMessage(message);
+        };
+        const updateListner = onlineList => {
+            onlineCount = onlineList;
+            const countObj = onlineCount.find(item => item.name === props.targetComp);
+            if (countObj) {
+                setOnlineValue(countObj.count);
+            } else {
+                setOnlineValue(0);
+            }
+        };
+        
         if (props.targetComp) {
             let message = props.messageTyped.find(item => item.name === props.targetComp)
             setTypedMessage(message.message)
-            socket.emit('join-room', props.targetComp);
-
-            socket.on('receive-message', (message, room) => {
-                console.log('Meesage received client ', message, room);
-                props.addMessage(message);
-            });
+            socket.emit('join-room', props.targetComp, username);
+            socket.on('receive-message', receiveListner);
+            socket.on('update_online_list', updateListner);
         }
+
+        return () => {
+            if(props.targetComp) {
+                socket.off('receive-message', receiveListner);
+                socket.off('update_online_list', updateListner);
+            }
+        }
+
     }, [props.targetComp])
 
     useEffect(() => {
@@ -95,7 +121,7 @@ export default function ChatScreen(props) {
                                     <span className="bubble-outer-dot">
                                     <span className="bubble-inner-dot"></span>
                                     </span>
-                                </div>&nbsp;&nbsp;&nbsp;&nbsp; Online: 15
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp; Online: {onlineValue}
                             </div>
                         </div>
                         <div id="all-message">

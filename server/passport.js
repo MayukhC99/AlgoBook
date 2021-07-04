@@ -4,7 +4,6 @@ const User= require('./models/users').users;
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-      console.log('Inside LocalStrategy');
       User.findOne({  
             username: username
         } 
@@ -17,7 +16,6 @@ passport.use(new LocalStrategy(
           console.log('wrong password');
           return done(null, false, {message: "Wrong password"});
         }
-        console.log('success');
         return done(null, user);
 
       }).catch((err)=>{
@@ -28,12 +26,10 @@ passport.use(new LocalStrategy(
   ));
 
   passport.serializeUser(function(user, done) {
-    console.log(user.username);
     done(null, user.username);
   });
 
   passport.deserializeUser(function(username, done) {
-    console.log(username);
     User.findOne({
         username: username
     }).then((user)=>{
@@ -41,7 +37,6 @@ passport.use(new LocalStrategy(
           return done(new Error('No such user'));
         }
 
-        console.log("sending to login.js (from deserialize call)");
         return done(null, user);
 
     }).catch((err)=>{
