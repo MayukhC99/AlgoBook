@@ -7,32 +7,68 @@ import './chat.css'
 const chatListData = [
     {
         id: 0,
-        name: "Graph Algorithm",
+        name: "Basic computation",
         messages: []
     },
     {
         id: 1,
-        name: "Searching Algorithm",
+        name: "Dynamic Programming",
         messages: []
     },
     {
         id: 2,
-        name: "Sorting Algorithm",
+        name: "Greedy Algorithms",
+        messages: []
+    },
+    {
+        id: 3,
+        name: "Graph Algorithms",
+        messages: []
+    },
+    {
+        id: 4,
+        name: "Searching Algorithms",
+        messages: []
+    },
+    {
+        id: 5,
+        name: "Sorting Algorithms",
+        messages: []
+    },
+    {
+        id: 6,
+        name: "Add-hoc problems",
         messages: []
     }
 ]
 
 const messageTyped = [
     {
-        name: "Graph Algorithm",
+        name: "Basic computation",
         message: ""
     },
     {
-        name: "Searching Algorithm",
+        name: "Dynamic Programming",
         message: ""
     },
     {
-        name: "Sorting Algorithm",
+        name: "Greedy Algorithms",
+        message: ""
+    },
+    {
+        name: "Graph Algorithms",
+        message: ""
+    },
+    {
+        name: "Searching Algorithms",
+        message: ""
+    },
+    {
+        name: "Sorting Algorithms",
+        message: ""
+    },
+    {
+        name: "Add-hoc problems",
         message: ""
     }
 ]

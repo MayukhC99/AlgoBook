@@ -4,6 +4,7 @@ import { faArrowLeft } from "@fortawesome/fontawesome-free-solid"
 import { v4 as uuidv4 } from 'uuid';
 
 import { io } from 'socket.io-client';
+import algoPic from "../../assets/img/algorithms.jpeg"; 
 
 let socket = undefined;
 let onlineCount = [];
@@ -44,7 +45,7 @@ export default function ChatScreen(props) {
                 setOnlineValue(0);
             }
         };
-        
+
         if (props.targetComp) {
             let message = props.messageTyped.find(item => item.name === props.targetComp)
             setTypedMessage(message.message)
@@ -111,7 +112,7 @@ export default function ChatScreen(props) {
                                 </div>
                             }
                             <span id="image">
-                                <img src="/img/Carousel1.jpeg" alt="group_photo" />
+                                <img src={algoPic} alt="group_photo" />
                             </span>
                             <div className="text-left d-flex align-items-center">
                                 <h6>{props.targetComp}</h6>
