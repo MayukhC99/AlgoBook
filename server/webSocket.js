@@ -47,16 +47,11 @@ module.exports = function webSocket(io) {
                     if (item.name === room) {
                         item.count++;
                     }
-                    console.log(item);
                     return item;
                 })
-
-                console.log('online count is 2'); console.log(onlineCount);
             } else {
                 //Huuh...first joiner of the room, add the room object
                 onlineCount.push({name: room, count: 1});
-
-                console.log('online count is 3'); console.log(onlineCount);
             }
 
             // Finally, join the room
@@ -66,7 +61,6 @@ module.exports = function webSocket(io) {
 
         socket.on('leave-room', username => {
             let prevGroup = userToGroup[username];
-
             console.log(`${username} is leaving room: ${prevGroup}`);
 
             if (prevGroup) {
