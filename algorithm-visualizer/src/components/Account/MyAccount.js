@@ -1,19 +1,25 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { UserContext } from '../../Context/UserContext'
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import DetailsComp from './DetailsComp'
 import FavoritesComp from './FavoritesComp'
 import ChangePasswordComp from './ChangePasswordComp'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCamera } from "@fortawesome/fontawesome-free-solid"
+import { faCamera, faCloudUploadAlt, faTrash } from "@fortawesome/fontawesome-free-solid"
+import axios from 'axios'
 import './account.css'
 
 export default function MyAccount() {
+    const { loginFlag, changeProfileImg } = useContext(UserContext)
+    const [profilePicSrc, setProfilePicSrc] = useState(`/img/${loginFlag.user.profile_picture}`)
+    const [saveCancelButton, setSaveCancelButton] = useState(false)
 
-    const [profilePicSrc, setProfilePicSrc] = useState("/img/Carousel1.jpeg")
+    const currentProfilePic = `/img/${loginFlag.user.profile_picture}`
 
     const changePhotoHandler = async (e) => {
         const file = e.target.files[0];
         await previewFile(file);
+        setSaveCancelButton(true)
     }
 
     const previewFile = (file) => {
@@ -23,6 +29,18 @@ export default function MyAccount() {
             setProfilePicSrc(reader.result);
         };
     };
+
+    const hideSaveCancelButton = () => {
+        setProfilePicSrc(currentProfilePic)
+        setSaveCancelButton(false)
+    }
+
+    const profilePicSubmitHandler = (e) => {
+        e.preventDefault()
+        const form = new FormData(e.target)
+        changeProfileImg(form)
+        setSaveCancelButton(false)
+    }
 
     return (
         <div>
@@ -36,12 +54,21 @@ export default function MyAccount() {
                             </div>
                         </div>
                         <div id="profile-pic">
+                            {
+                                saveCancelButton &&
+                                <div id="layer">
+                                    <button type="submit" form="pic_update" id="upload_btn">
+                                        <FontAwesomeIcon icon={faCloudUploadAlt} style={{ color: 'white', margin: '0 60px 0 0', cursor: 'pointer' }} />
+                                    </button>
+                                    <FontAwesomeIcon icon={faTrash} onClick={hideSaveCancelButton} style={{ color: 'white', marginTop: '80px', cursor: 'pointer' }} />
+                                </div>
+                            }
                             <img src={profilePicSrc} alt="" height="200" width="200" />
                             <div className="update" id="update">
-                                <div className="pic_update" id="pic_update">
-                                    <input type="file" id="chooseProfileImg" onChange={changePhotoHandler} hidden />
+                                <form className="pic_update" id="pic_update" onSubmit={profilePicSubmitHandler}>
+                                    <input type="file" id="chooseProfileImg" name="profile_image" onChange={changePhotoHandler} hidden />
                                     <label htmlFor="chooseProfileImg" style={{ cursor: 'pointer' }}>Update</label>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>

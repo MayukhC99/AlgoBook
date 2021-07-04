@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import { CardContext } from './Context/CardContext'
+import { UserContext } from './Context/UserContext'
 import axios from 'axios'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
@@ -7,8 +8,6 @@ import GraphVisualizer from './components/Graph/GraphVisualizer'
 import SearchingVisualizer from './components/Searching/SearchingVisualizer'
 import SortingVisualizer from './components/Sorting/SortingVisualizer'
 import ChatComponent from './components/Chat_Room/ChatComponent'
-import SignIn from './components/SignIn'
-import SignUp from './components/SignUp'
 import UserForm from './components/UserOperations/UserForm'
 import MyAccount from './components/Account/MyAccount'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
@@ -89,9 +88,9 @@ function App() {
 
     useEffect(() => {
         axios.get("/api/root/verify_user")
-        .then(res => {
-            setUserDetails(res.data)
-        })
+            .then(res => {
+                setLoginFlag(res.data)
+            })
     }, []);
 
     const changeFavIcons = (e) => {
@@ -110,6 +109,20 @@ function App() {
         }
     }
 
+    const changeProfileImg = (data) => {
+        axios.post('/api/root/upload/profile_image', data)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.file) {
+                    setLoginFlag(prev => {
+                        const newData = prev
+                        newData.profile_picture = res.data.file
+                        return newData
+                    })
+                }
+            })
+    }
+
     // const providerValue = useMemo(() => ({ cardData, Favorites, addFavorite, removeFavorite }), [])
 
     return (
@@ -117,18 +130,20 @@ function App() {
             <Router>
                 <NavBar loginFlag={userDetails} />
                 <Switch>
-                    <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
-                        <Route exact path="/" component={Home} />
-                        <Route path="/home" component={Home} />
-                        <Route path="/graphVisualizer" component={GraphVisualizer} />
-                        <Route path="/searchingVisualizer" component={SearchingVisualizer} />
-                        <Route path="/sortingVisualizer" component={SortingVisualizer} />
-                        <Route path="/chat_room" component={() => <ChatComponent userDetails={userDetails ? {...userDetails} : {user: {username: 'anonymous'}} } />} />
-                        <Route path="/signIn" component={() => <UserForm loginFlag={true} />} />
-                        <Route path="/signUp" component={() => <UserForm loginFlag={false} />} />
-                        <Route path="/account" component={MyAccount} />
-                        {/* <Redirect to="/home"></Redirect> */}
-                    </CardContext.Provider>
+                    <UserContext.Provider value={{ loginFlag, changeProfileImg }} >
+                        <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
+                            <Route exact path="/" component={Home} />
+                            <Route path="/home" component={Home} />
+                            <Route path="/graphVisualizer" component={GraphVisualizer} />
+                            <Route path="/searchingVisualizer" component={SearchingVisualizer} />
+                            <Route path="/sortingVisualizer" component={SortingVisualizer} />
+                            <Route path="/chat_room" component={ChatComponent} />
+                            <Route path="/signIn" component={UserForm} />
+                            <Route path="/signUp" component={UserForm} />
+                            <Route path="/account" component={MyAccount} />
+                            {/* <Redirect to="/home"></Redirect> */}
+                        </CardContext.Provider>
+                    </UserContext.Provider>
                 </Switch>
             </Router>
         </div>

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 import styled from "styled-components";
 import bgImg from "../../assets/img/userFormBG.jpeg";
 import Signup from "./Signup";
 import Login from "./Login";
 import Main from "./Main";
 
-const UserForm = ({ loginFlag }) => {
+const UserForm = () => {
+  const { loginFlag } = useContext(UserContext)
   const [loginPage, setLoginPage] = useState(loginFlag);
 
   return (
@@ -14,8 +16,8 @@ const UserForm = ({ loginFlag }) => {
         {loginPage ? (
           <Login setLoginPage={setLoginPage} />
         ) : (
-          <Signup setLoginPage={setLoginPage} />
-        )}
+            <Signup setLoginPage={setLoginPage} />
+          )}
         <Main />
       </Wrapper>
     </Container>

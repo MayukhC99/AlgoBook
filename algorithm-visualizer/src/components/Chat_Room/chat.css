@@ -27,7 +27,7 @@
 }
 
 .fixedList {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 56px);
   overflow-y: auto;
   border-right: 1px solid rgb(235, 235, 235);
 }
@@ -52,7 +52,7 @@
 }
 
 #all-message {
-  height: calc(100% - 118px);
+  height: calc(100% - 121px);
   overflow: hidden;
   overflow-y: auto;
 }
