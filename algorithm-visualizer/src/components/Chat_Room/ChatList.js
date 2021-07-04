@@ -24,7 +24,11 @@ export default function ChatList({ targetList, activeComp, messages }) {
                                     </span>
                                     <div className="text-left">
                                         <span>{item.name}</span>
-                                        <div>{item.messages[messageLength - 1].user}: {item.messages[messageLength - 1].text}</div>
+                                        { messageLength !== 0 &&
+                                            <div>{item.messages[messageLength - 1].user}: {item.messages[messageLength - 1].text.substring(0, 20) === item.messages[messageLength - 1].text
+                                                                                            ? item.messages[messageLength - 1].text
+                                                                                            : item.messages[messageLength - 1].text.substring(0, 20) + '...'}</div>
+                                        }
                                     </div>
                                 </div>
                                 :
@@ -34,7 +38,11 @@ export default function ChatList({ targetList, activeComp, messages }) {
                                     </span>
                                     <div className="text-left">
                                         <span>{item.name}</span>
-                                        <div>{item.messages[messageLength - 1].user}: {item.messages[messageLength - 1].text}</div>
+                                        { messageLength !== 0 &&
+                                            <div>{item.messages[messageLength - 1].user}: {item.messages[messageLength - 1].text.substring(0, 20) === item.messages[messageLength - 1].text
+                                                                                            ? item.messages[messageLength - 1].text
+                                                                                            : item.messages[messageLength - 1].text.substring(0, 20) + '...'}</div>
+                                        }
                                     </div>
                                 </div>
                         )

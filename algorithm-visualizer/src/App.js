@@ -85,12 +85,12 @@ const favIcons = [`Interpolation Search Algorithm`, `Sorting Visualizer`]
 function App() {
 
     const [Favorites, setFavorites] = useState(favIcons)
-    const [loginFlag, setLoginFlag] = useState(null)
+    const [userDetails, setUserDetails] = useState(null)
 
     useEffect(() => {
         axios.get("/api/root/verify_user")
         .then(res => {
-            setLoginFlag(res.data)
+            setUserDetails(res.data)
         })
     }, []);
 
@@ -115,7 +115,7 @@ function App() {
     return (
         <div className="App">
             <Router>
-                <NavBar loginFlag={loginFlag} />
+                <NavBar loginFlag={userDetails} />
                 <Switch>
                     <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
                         <Route exact path="/" component={Home} />
@@ -123,9 +123,9 @@ function App() {
                         <Route path="/graphVisualizer" component={GraphVisualizer} />
                         <Route path="/searchingVisualizer" component={SearchingVisualizer} />
                         <Route path="/sortingVisualizer" component={SortingVisualizer} />
-                        <Route path="/chat_room" component={ChatComponent} />
-                        <Route path="/signIn" component={() => <UserForm loginFlag={loginFlag} />} />
-                        <Route path="/signUp" component={() => <UserForm loginFlag={loginFlag} />} />
+                        <Route path="/chat_room" component={() => <ChatComponent userDetails={userDetails ? {...userDetails} : {user: {username: 'anonymous'}} } />} />
+                        <Route path="/signIn" component={() => <UserForm loginFlag={true} />} />
+                        <Route path="/signUp" component={() => <UserForm loginFlag={false} />} />
                         <Route path="/account" component={MyAccount} />
                         {/* <Redirect to="/home"></Redirect> */}
                     </CardContext.Provider>
