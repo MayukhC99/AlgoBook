@@ -79,18 +79,22 @@ import './App.css';
 //     },
 // ]
 
-const favIcons = [`Interpolation Search Algorithm`, `Sorting Visualizer`]
-
 function App() {
 
     const [cardData, setCardData] = useState([])
-    const [Favorites, setFavorites] = useState(favIcons)
+    const [Favorites, setFavorites] = useState([])
     const [userDetails, setUserDetails] = useState(null)
 
     useEffect(() => {
         axios.get("/api/algo/getAll")
             .then(res => {
                 setCardData(res.data)
+                if (res.data) {
+                    axios.get("/api/algo/get/fav")
+                        .then(res => {
+                            setFavorites(res.data)
+                        })
+                }
             })
         axios.get("/api/root/verify_user")
             .then(res => {
@@ -99,19 +103,32 @@ function App() {
     }, []);
 
     const changeFavIcons = (e) => {
-        if ('favName' in e.target.dataset) {
-            if (Favorites.indexOf(e.target.dataset.favName) !== -1) {
-                setFavorites(prev => prev.filter(item => item !== e.target.dataset.favName))
+        if ('favId' in e.target.dataset) {
+            if (Favorites.indexOf(e.target.dataset.favId) !== -1) {
+                setFavorites(prev => prev.filter(item => item !== e.target.dataset.favId))
             } else {
-                setFavorites(prev => [...prev, e.target.dataset.favName])
+                addToFavorites(e.target.dataset.favId)
             }
-        } else if ('favName' in e.target.parentNode.dataset) {
-            if (Favorites.indexOf(e.target.parentNode.dataset.favName) !== -1) {
-                setFavorites(prev => prev.filter(item => item !== e.target.parentNode.dataset.favName))
+        } else if ('favId' in e.target.parentNode.dataset) {
+            if (Favorites.indexOf(e.target.parentNode.dataset.favId) !== -1) {
+                setFavorites(prev => prev.filter(item => item !== e.target.parentNode.dataset.favId))
             } else {
-                setFavorites(prev => [...prev, e.target.parentNode.dataset.favName])
+                addToFavorites(e.target.parentNode.dataset.favId)
             }
         }
+    }
+
+    const addToFavorites = (id) => {
+        axios.post("/api/algo/add/fav", { id })
+            .then(res => {
+                if (res.data.status === "success") {
+                    setFavorites(prev => [...prev, id])
+                }
+            })
+    }
+
+    const removeFromFavorites = (id) => {
+
     }
 
     const changeProfileImg = (data) => {
