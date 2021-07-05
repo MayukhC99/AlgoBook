@@ -141,7 +141,16 @@ function App() {
     }
 
     const changeDetails = (data) => {
-
+        axios.post('/api/account/edit', data)
+        .then(res => {
+            const data = res.data || {};
+            if ( data.error ){
+                alert('There has been an error while updating your details. Please try again.')
+            } else if (res.data) {
+                alert('Details successfully updated');
+                window.location.href='/';
+            }
+        })
     }
 
     // const providerValue = useMemo(() => ({ cardData, Favorites, addFavorite, removeFavorite }), [])
