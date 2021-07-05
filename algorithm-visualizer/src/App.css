@@ -108,12 +108,14 @@
 }
 
 .footer {
-  flex-shrink: 0;
+  margin-top: 1rem;
+  padding: 1rem;
+  position: fixed;
   bottom: 0;
-  height: 60px;
+  left: 0;
+  height: 50px;
+  width: 100%;
   text-align: center;
-  justify-content: center;
-  vertical-align: middle;
   background-color: tomato;
   color: white;
 }
