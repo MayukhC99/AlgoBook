@@ -158,8 +158,8 @@ function App() {
                             <Route path="/searchingVisualizer" component={SearchingVisualizer} />
                             <Route path="/sortingVisualizer" component={SortingVisualizer} />
                             <Route path="/chat_room" component={ChatComponent} />
-                            <Route path="/signIn" component={UserForm} />
-                            <Route path="/signUp" component={UserForm} />
+                            <Route path="/signIn" render={() => <UserForm loginFlag={true} />} />
+                            <Route path="/signUp" render={() => <UserForm loginFlag={false} />} />
                             <Route path="/account" component={MyAccount} />
                             {/* <Redirect to="/home"></Redirect> */}
                         </CardContext.Provider>
