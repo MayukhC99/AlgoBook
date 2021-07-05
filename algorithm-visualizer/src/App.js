@@ -4,6 +4,7 @@ import { UserContext } from './Context/UserContext'
 import axios from 'axios'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
+import Footer from './components/Footer'
 import GraphVisualizer from './components/Graph/GraphVisualizer'
 import SearchingVisualizer from './components/Searching/SearchingVisualizer'
 import SortingVisualizer from './components/Sorting/SortingVisualizer'
@@ -197,6 +198,7 @@ function App() {
                         </div>
                     </div>
             }
+            <Footer />
         </div>
     );
 }
