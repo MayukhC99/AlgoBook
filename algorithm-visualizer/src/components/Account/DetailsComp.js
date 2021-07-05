@@ -4,14 +4,19 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 export default function DetailsComp() {
     const { userDetails, changeDetails } = useContext(UserContext)
+    const [firstName, setFirstName] = useState(userDetails.user.first_name)
+    const [lastName, setLastName] = useState(userDetails.user.last_name)
+    const [emailId, setEmailId] = useState(userDetails.user.email_id)
     const [showSaveButton, setShowSaveButton] = useState(false)
 
     const submitHandler = () => {
-        const first_name = document.getElementById("first_name").value
-        const last_name = document.getElementById("last_name").value
-        const email_id = document.getElementById("email_id").value
-        const data = { first_name, last_name, email_id }
+        const data = {
+            first_name: firstName,
+            last_name: lastName,
+            email_id: emailId
+        }
         changeDetails(data)
+        showSaveButton(false)
     }
 
     return (
@@ -29,7 +34,7 @@ export default function DetailsComp() {
                     First Name
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="text" id="first_name" value={userDetails.user.first_name} readOnly={!showSaveButton} />
+                    <input type="text" id="first_name" value={firstName} onChange={(e) => setFirstName(e.target.value)} readOnly={!showSaveButton} />
                 </Col>
             </Row>
             <Row className="mt-3 mb-3">
@@ -37,7 +42,7 @@ export default function DetailsComp() {
                     Last Name
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="text" id="last_name" value={userDetails.user.last_name} readOnly={!showSaveButton} />
+                    <input type="text" id="last_name" value={lastName} onChange={(e) => setLastName(e.target.value)} readOnly={!showSaveButton} />
                 </Col>
             </Row>
             <Row className="mt-3 mb-3">
@@ -45,7 +50,7 @@ export default function DetailsComp() {
                     Email Id
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="email" id="email_id" value={userDetails.user.email_id} readOnly={!showSaveButton} />
+                    <input type="email" id="email_id" value={emailId} onChange={(e) => setEmailId(e.target.value)} readOnly={!showSaveButton} />
                 </Col>
             </Row>
             {

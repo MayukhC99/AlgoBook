@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { UserContext } from '../../Context/UserContext'
 import { Container, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import DetailsComp from './DetailsComp'
@@ -15,8 +15,13 @@ export default function MyAccount() {
     const [saveCancelButton, setSaveCancelButton] = useState(false)
     const [coverSaveCancelButton, setCoverSaveCancelButton] = useState(false)
 
-    const currentProfilePic = `/img/${userDetails.user.profile_picture}`
-    const currentCoverPic = `/img/${userDetails.user.cover_picture}`
+    let currentProfilePic;
+    let currentCoverPic;
+
+    useEffect(() => {
+        currentProfilePic = `/img/${userDetails.user.profile_picture}`
+        currentCoverPic = `/img/${userDetails.user.cover_picture}`
+    })
 
     const changePhotoHandler = async (e) => {
         const file = e.target.files[0];
