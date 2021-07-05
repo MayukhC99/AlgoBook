@@ -1,5 +1,6 @@
 import { Navbar, Nav, Dropdown } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
+import logo from '../assets/img/logo.png'
 
 
 export default function NavBar({ userDetails }) {
@@ -7,7 +8,9 @@ export default function NavBar({ userDetails }) {
     return (
         <div id="home">
             <Navbar bg="light" expand="lg" style={{ zIndex: '500' }}>
-                <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+                <NavLink to="/home">
+                    <Navbar.Brand ><img src={logo} style={{ height: '50px', width: '60px', objectFit: 'cover' }} /></Navbar.Brand>
+                </NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">

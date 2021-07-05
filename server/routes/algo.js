@@ -46,7 +46,7 @@ route.post('/undo/fav', async (req, res) => {
 //Fetch favs of a particular username and return the algoIds
 route.get('/get/fav', async (req, res) => {
     try {
-        const data = [];
+        let data = [];
         if (req.user){
             data = await favourites.find({'username': req.user.username})
         } else {
