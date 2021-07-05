@@ -34,7 +34,9 @@ export default function ChangePasswordComp() {
                 </Col>
             </Row>
             <Row>
-                <button className="btn btn-primary" onClick={submitHandler}>Save</button>
+                <Col xs={6} sm={4} md={3} style={{ textAlign: 'right' }}>
+                    <button className="btn btn-primary" onClick={submitHandler}>Save</button>
+                </Col>
             </Row>
         </Container>
     )

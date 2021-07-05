@@ -13,80 +13,85 @@ import MyAccount from './components/Account/MyAccount'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import './App.css';
 
-const cardData = [
-    {
-        id: 1,
-        title: `Breadth First and Depth First Algorithms`,
-        body: `A simple simulation of Breadth First Traversal and Depth First traversal
-          on an undirected graph created by the user.`,
-        name: `BFS and DFS`,
-        type: "graph",
-        link: "/graphVisualizer/bfsdfs"
-    },
-    {
-        id: 2,
-        title: `Dijkstra's Shortest Path Algorithm`,
-        body: `A simulation of Djikstra's Shortest Path Algorithm and finding the shortest
-          paths from the chosen source vertex to all the nodes.`,
-        name: `Dijkstra's Algorithm`,
-        type: "graph",
-        link: "/graphVisualizer/dijkstra"
-    },
-    {
-        id: 3,
-        title: `Kruskal's Minimal Spanning Tree`,
-        body: `A simple simulation Kruskal's Algorithm for finding the Minimal Spanning
-          Tree of a connected undirected weighted graph.`,
-        name: `Kruskal's MST`,
-        type: "graph",
-        link: "/graphVisualizer/KruskalMST"
-    },
-    {
-        id: 4,
-        title: `Linear Search Algorithm`,
-        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-          for understanding them better.`,
-        name: `Linear Search`,
-        type: "searching",
-        link: "/searchingVisualizer/linearsearch"
-    },
-    {
-        id: 5,
-        title: `Binary Search Algorithm`,
-        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-          for understanding them better.`,
-        name: `Binary Search`,
-        type: "searching",
-        link: "/searchingVisualizer/binarysearch"
-    },
-    {
-        id: 6,
-        title: `Interpolation Search Algorithm`,
-        body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-          for understanding them better.`,
-        name: `Interpolation Search`,
-        type: "searching",
-        link: "/searchingVisualizer/interpolationsearch"
-    },
-    {
-        id: 7,
-        title: `Sorting Visualizer`,
-        body: `Simulation of Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort on
-          randomly chosen data values.`,
-        name: `Sorting Algorithms`,
-        type: "sorting",
-        link: "/sortingVisualizer"
-    },
-]
+// const cardData = [
+//     {
+//         id: 1,
+//         title: `Breadth First and Depth First Algorithms`,
+//         body: `A simple simulation of Breadth First Traversal and Depth First traversal
+//           on an undirected graph created by the user.`,
+//         name: `BFS and DFS`,
+//         type: "graph",
+//         link: "/graphVisualizer/bfsdfs"
+//     },
+//     {
+//         id: 2,
+//         title: `Dijkstra's Shortest Path Algorithm`,
+//         body: `A simulation of Djikstra's Shortest Path Algorithm and finding the shortest
+//           paths from the chosen source vertex to all the nodes.`,
+//         name: `Dijkstra's Algorithm`,
+//         type: "graph",
+//         link: "/graphVisualizer/dijkstra"
+//     },
+//     {
+//         id: 3,
+//         title: `Kruskal's Minimal Spanning Tree`,
+//         body: `A simple simulation Kruskal's Algorithm for finding the Minimal Spanning
+//           Tree of a connected undirected weighted graph.`,
+//         name: `Kruskal's MST`,
+//         type: "graph",
+//         link: "/graphVisualizer/KruskalMST"
+//     },
+//     {
+//         id: 4,
+//         title: `Linear Search Algorithm`,
+//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+//           for understanding them better.`,
+//         name: `Linear Search`,
+//         type: "searching",
+//         link: "/searchingVisualizer/linearsearch"
+//     },
+//     {
+//         id: 5,
+//         title: `Binary Search Algorithm`,
+//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+//           for understanding them better.`,
+//         name: `Binary Search`,
+//         type: "searching",
+//         link: "/searchingVisualizer/binarysearch"
+//     },
+//     {
+//         id: 6,
+//         title: `Interpolation Search Algorithm`,
+//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
+//           for understanding them better.`,
+//         name: `Interpolation Search`,
+//         type: "searching",
+//         link: "/searchingVisualizer/interpolationsearch"
+//     },
+//     {
+//         id: 7,
+//         title: `Sorting Visualizer`,
+//         body: `Simulation of Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort on
+//           randomly chosen data values.`,
+//         name: `Sorting Algorithms`,
+//         type: "sorting",
+//         link: "/sortingVisualizer"
+//     },
+// ]
 
 const favIcons = [`Interpolation Search Algorithm`, `Sorting Visualizer`]
 
 function App() {
 
+    const [cardData, setCardData] = useState([])
     const [Favorites, setFavorites] = useState(favIcons)
     const [userDetails, setUserDetails] = useState(null)
 
     useEffect(() => {
+        axios.get("/api/algo/getAll")
+            .then(res => {
+                setCardData(res.data)
+            })
         axios.get("/api/root/verify_user")
             .then(res => {
                 setUserDetails(res.data)
@@ -147,25 +152,34 @@ function App() {
 
     return (
         <div className="App">
-            <Router>
-                <NavBar userDetails={userDetails} />
-                <Switch>
-                    <UserContext.Provider value={{ userDetails, changeProfileImg, changeCoverImg, changeDetails, changePassword }} >
-                        <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
-                            <Route exact path="/" component={Home} />
-                            <Route path="/home" component={Home} />
-                            <Route path="/graphVisualizer" component={GraphVisualizer} />
-                            <Route path="/searchingVisualizer" component={SearchingVisualizer} />
-                            <Route path="/sortingVisualizer" component={SortingVisualizer} />
-                            <Route path="/chat_room" component={ChatComponent} />
-                            <Route path="/signIn" render={() => <UserForm loginFlag={true} />} />
-                            <Route path="/signUp" render={() => <UserForm loginFlag={false} />} />
-                            <Route path="/account" component={MyAccount} />
-                            {/* <Redirect to="/home"></Redirect> */}
-                        </CardContext.Provider>
-                    </UserContext.Provider>
-                </Switch>
-            </Router>
+            {
+                cardData.length ?
+                    <Router>
+                        <NavBar userDetails={userDetails} />
+                        <Switch>
+                            <UserContext.Provider value={{ userDetails, changeProfileImg, changeCoverImg, changeDetails, changePassword }} >
+                                <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
+                                    <Route exact path="/" component={Home} />
+                                    <Route path="/home" component={Home} />
+                                    <Route path="/graphVisualizer" component={GraphVisualizer} />
+                                    <Route path="/searchingVisualizer" component={SearchingVisualizer} />
+                                    <Route path="/sortingVisualizer" component={SortingVisualizer} />
+                                    <Route path="/chat_room" component={ChatComponent} />
+                                    <Route path="/signIn" render={() => <UserForm loginFlag={true} />} />
+                                    <Route path="/signUp" render={() => <UserForm loginFlag={false} />} />
+                                    <Route path="/account" component={MyAccount} />
+                                    {/* <Redirect to="/home"></Redirect> */}
+                                </CardContext.Provider>
+                            </UserContext.Provider>
+                        </Switch>
+                    </Router>
+                    :
+                    <div class="loader">
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+            }
         </div>
     );
 }

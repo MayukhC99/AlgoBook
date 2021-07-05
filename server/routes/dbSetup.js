@@ -8,9 +8,9 @@ route.get('/init', async (req, res) => {
         await algorithms.insertMany(algoAsset);
         console.log('Successfully initialized DB with Algo data');
         return res.json(algoAsset);
-    } catch(error) {
-        console.log('Failed to initilize DB: '+ error);
-        return res.json({'error': 'Failed to initilize DB with algorithms'});
+    } catch (error) {
+        console.log('Failed to initilize DB: ' + error);
+        return res.json({ 'error': 'Failed to initilize DB with algorithms' });
     }
 })
 
@@ -18,10 +18,10 @@ route.get('/deleteAllAlgos', async (req, res) => {
     try {
         await algorithms.deleteMany({});
         console.log('Algorithms collection is emptied');
-        return res.json({'status': 'success'});
-    } catch(error) {
-        console.log('Delete data failed: ' + error );
-        return res.json({'error': 'Error occured while deleting all documents from Algorithms collection'});
+        return res.json({ 'status': 'success' });
+    } catch (error) {
+        console.log('Delete data failed: ' + error);
+        return res.json({ 'error': 'Error occured while deleting all documents from Algorithms collection' });
     }
 })
 

@@ -51,7 +51,9 @@ export default function DetailsComp() {
             {
                 !showSaveButton &&
                 <Row>
-                    <button className="btn btn-primary" style={{ color: 'blue', padding: '0' }} onClick={() => setShowSaveButton(true)}>Edit</button>
+                    <Col xs={6} sm={4} md={3} style={{ textAlign: 'right' }}>
+                        <button className="btn btn-primary" onClick={() => setShowSaveButton(true)}>Edit</button>
+                    </Col>
                 </Row>
             }
             {
