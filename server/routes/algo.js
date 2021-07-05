@@ -29,7 +29,7 @@ route.post('/add/fav', async (req, res) => {
     }
 })
 
-route.post('/undo/fav', async (req, res) => {
+route.get('/undo/fav', async (req, res) => {
     try {
         if(req.user) {
             const removedAlgo = await favourites.findOneAndRemove({'username': req.user.username})
