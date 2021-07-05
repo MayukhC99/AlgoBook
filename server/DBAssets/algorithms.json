@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "title": "Breadth First and Depth First Algorithms",
+        "body": "A simple simulation of Breadth First Traversal and Depth First traversal\non an undirected graph created by the user.",
+        "name": "BFS and DFS",
+        "type": "graph",
+        "link": "/graphVisualizer/bfsdfs"
+    },
+    {
+        "id": 2,
+        "title": "Dijkstra's Shortest Path Algorithm",
+        "body": "A simulation of Djikstra's Shortest Path Algorithm and finding the shortest\npaths from the chosen source vertex to all the nodes.",
+        "name": "Dijkstra's Algorithm",
+        "type": "graph",
+        "link": "/graphVisualizer/dijkstra"
+    },
+    {
+        "id": 3,
+        "title": "Kruskal's Minimal Spanning Tree",
+        "body": "A simple simulation Kruskal's Algorithm for finding the Minimal Spanning\nTree of a connected undirected weighted graph.",
+        "name": "Kruskal's MST",
+        "type": "graph",
+        "link": "/graphVisualizer/KruskalMST"
+    },
+    {
+        "id": 4,
+        "title": "Linear Search Algorithm",
+        "body": "A simple simulation of Linear Search and Binary Search on an array of integers meant\nfor understanding them better.",
+        "name": "Linear Search",
+        "type": "searching",
+        "link": "/searchingVisualizer/linearsearch"
+    },
+    {
+        "id": 5,
+        "title": "Binary Search Algorithm",
+        "body": "A simple simulation of Linear Search and Binary Search on an array of integers meant\nfor understanding them better.",
+        "name": "Binary Search",
+        "type": "searching",
+        "link": "/searchingVisualizer/binarysearch"
+    },
+    {
+        "id": 6,
+        "title": "Interpolation Search Algorithm",
+        "body": "A simple simulation of Linear Search and Binary Search on an array of integers meant\nfor understanding them better.",
+        "name": "Interpolation Search",
+        "type": "searching",
+        "link": "/searchingVisualizer/interpolationsearch"
+    },
+    {
+        "id": 7,
+        "title": "Sorting Visualizer",
+        "body": "Simulation of Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort on\nrandomly chosen data values.",
+        "name": "Sorting Algorithms",
+        "type": "sorting",
+        "link": "/sortingVisualizer"
+    }
+]
