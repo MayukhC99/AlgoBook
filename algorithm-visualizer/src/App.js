@@ -144,10 +144,6 @@ function App() {
 
     }
 
-    const changePassword = (data) => {
-
-    }
-
     // const providerValue = useMemo(() => ({ cardData, Favorites, addFavorite, removeFavorite }), [])
 
     return (
@@ -157,7 +153,7 @@ function App() {
                     <Router>
                         <NavBar userDetails={userDetails} />
                         <Switch>
-                            <UserContext.Provider value={{ userDetails, changeProfileImg, changeCoverImg, changeDetails, changePassword }} >
+                            <UserContext.Provider value={{ userDetails, changeProfileImg, changeCoverImg, changeDetails }} >
                                 <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
                                     <Route exact path="/" component={Home} />
                                     <Route path="/home" component={Home} />
