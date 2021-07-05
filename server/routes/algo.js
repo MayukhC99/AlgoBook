@@ -14,9 +14,36 @@ route.get('/getAll', async (req, res) => {
     }
 })
 
-// route.get('/add/fav', async (req, res) => {
+route.post('/add/fav', async (req, res) => {
+    try {
+        if (req.user && req.body.id){
+            await favourites.create({'username': req.user.username, 'algoId': req.body.id});
+            return res.json({'status': 'success'});
+        } else {
+            console.log(`Field missing on either user: ${req.user} or algoId: ${req.body.id}`);
+            return res.json({'status': 'Failed'});
+        }
+    } catch(error) {
+        console.log('Error occured while creating a fav: ' + error);
+        return res.json({'error': 'Error occured while creating a fav item'});
+    }
+})
 
-// })
+//Fetch favs of a particular username and return the algoIds
+route.get('get/fav', async (req, res) => {
+    try {
+        const data = [];
+        if (req.user){
+            data = await algorithms.find({'username': req.user.username})
+        } else {
+            console.log(`User doesn't exists`);
+        }
+        return res.json(data);
+    } catch(error) {
+        console.log('Error while fetching fav: ' + error);
+        return res.json({'error': 'Error while fetching favs'});
+    }
+})
 
 
 
