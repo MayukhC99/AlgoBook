@@ -1,6 +1,9 @@
+import { useState, useContext } from 'react'
+import { UserContext } from '../../Context/UserContext'
 import { Container, Row, Col } from 'react-bootstrap'
 
 export default function ChangePasswordComp() {
+    const { loginFlag, changePassword } = useContext(UserContext)
     return (
         <Container>
             <Row className="mt-3 mb-3">
