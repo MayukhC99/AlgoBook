@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import { UserContext } from '../../Context/UserContext'
 import ChatList from './ChatList'
 import ChatScreen from './ChatScreen'
 import './chat.css'
@@ -73,8 +74,9 @@ const messageTyped = [
     }
 ]
 
-export default function ChatComponent({ userDetails }) {
+export default function ChatComponent() {
 
+    const { userDetails } = useContext(UserContext)
     const [isSmall, setIsSmall] = useState(false)
     const [targetComp, setTargetComp] = useState('')
     const [messages, setMessages] = useState(chatListData)
