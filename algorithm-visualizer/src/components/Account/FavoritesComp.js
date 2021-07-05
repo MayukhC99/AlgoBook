@@ -18,7 +18,7 @@ export default function FavoritesComp() {
                         :
                         cardData.map(item => {
                             return (
-                                Favorites.indexOf(item.title) !== -1 &&
+                                Favorites.find(o => o.algoId === item.id) !== undefined &&
                                 <Col xs={12} md={6} lg={4} key={item.id} >
                                     <Card style={{ width: '18rem', margin: '20px auto' }}>
                                         <Card.Img variant="top" src={`/img/${item.title.replace(/ /g, "_")}.png`} />
@@ -30,7 +30,7 @@ export default function FavoritesComp() {
                                                 </Tooltip>
                                             }
                                         >
-                                            <FontAwesomeIcon onClick={changeFavIcons} id="solidFavIcon" className="fav-icon" data-fav-name={item.title} icon={faHeart} />
+                                            <FontAwesomeIcon onClick={changeFavIcons} id="solidFavIcon" className="fav-icon" data-fav-id={item.id} icon={faHeart} />
                                         </OverlayTrigger>
                                         <Card.Body>
                                             <Card.Title>{item.title}</Card.Title>

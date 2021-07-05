@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../Context/UserContext'
 import { CardContext } from '../Context/CardContext';
 import { Card, Container, Col, Row, Form, FormControl, Dropdown, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
@@ -10,6 +11,7 @@ const capitalize = (item) => item.charAt(0).toUpperCase() + item.slice(1)
 
 
 export default function VisualizerCards() {
+    const { userDetails } = useContext(UserContext)
     const { cardData, Favorites, changeFavIcons } = useContext(CardContext)
     const [selectedOptions, setSelectedOptions] = useState([])
     const [showCard, setShowCard] = useState(cardData)
@@ -87,21 +89,29 @@ export default function VisualizerCards() {
                                     <OverlayTrigger
                                         placement="top"
                                         overlay={
-                                            Favorites.indexOf(item.title) === -1 ?
+                                            (userDetails && Favorites.find(o => o.algoId === item.id) === undefined) ?
                                                 <Tooltip id="top">
                                                     Add to favorites.
                                                 </Tooltip>
                                                 :
-                                                <Tooltip id="top">
-                                                    Remove from favorites.
-                                                </Tooltip>
+                                                userDetails ?
+                                                    <Tooltip id="top">
+                                                        Remove from favorites.
+                                                    </Tooltip>
+                                                    :
+                                                    <Tooltip id="top">
+                                                        LogIn to add to favorites.
+                                                    </Tooltip>
                                         }
                                     >
                                         {
-                                            Favorites.indexOf(item.title) !== -1 ?
-                                                <FontAwesomeIcon onClick={changeFavIcons} id="solidFavIcon" className="fav-icon" data-fav-name={item.title} icon={faHeart} />
+                                            (userDetails && Favorites.find(o => o.algoId === item.id) !== undefined) ?
+                                                <FontAwesomeIcon onClick={changeFavIcons} id="solidFavIcon" className="fav-icon" data-fav-id={item.id} icon={faHeart} />
                                                 :
-                                                <FontAwesomeIcon onClick={changeFavIcons} id="regFavIcon" className="fav-icon" data-fav-name={item.title} icon={farHeart} />
+                                                userDetails ?
+                                                    <FontAwesomeIcon onClick={changeFavIcons} id="regFavIcon" className="fav-icon" data-fav-id={item.id} icon={farHeart} />
+                                                    :
+                                                    <NavLink to="/signIn"><FontAwesomeIcon id="regFavIcon" className="fav-icon" icon={farHeart} /></NavLink>
                                         }
                                     </OverlayTrigger>
                                     <Card.Body>
