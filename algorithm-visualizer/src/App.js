@@ -89,7 +89,7 @@ function App() {
     useEffect(() => {
         axios.get("/api/root/verify_user")
             .then(res => {
-                setLoginFlag(res.data)
+                setUserDetails(res.data)
             })
     }, []);
 
@@ -113,7 +113,7 @@ function App() {
         axios.post('/api/root/upload/profile_image', data)
             .then(res => {
                 if (res.data.file) {
-                    setLoginFlag(prev => {
+                    setUserDetails(prev => {
                         const newData = prev
                         newData.user.profile_picture = res.data.file
                         return newData
@@ -126,7 +126,7 @@ function App() {
         axios.post('/api/root/upload/cover_image', data)
             .then(res => {
                 if (res.data.file) {
-                    setLoginFlag(prev => {
+                    setUserDetails(prev => {
                         const newData = prev
                         newData.user.cover_picture = res.data.file
                         return newData
@@ -150,7 +150,7 @@ function App() {
             <Router>
                 <NavBar loginFlag={userDetails} />
                 <Switch>
-                    <UserContext.Provider value={{ loginFlag, changeProfileImg, changeCoverImg, changeDetails, changePassword }} >
+                    <UserContext.Provider value={{ userDetails, changeProfileImg, changeCoverImg, changeDetails, changePassword }} >
                         <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
                             <Route exact path="/" component={Home} />
                             <Route path="/home" component={Home} />

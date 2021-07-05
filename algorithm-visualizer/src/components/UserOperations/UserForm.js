@@ -7,8 +7,8 @@ import Login from "./Login";
 import Main from "./Main";
 
 const UserForm = () => {
-  const { loginFlag } = useContext(UserContext)
-  const [loginPage, setLoginPage] = useState(loginFlag);
+  const { userDetails } = useContext(UserContext)
+  const [loginPage, setLoginPage] = useState(userDetails);
 
   return (
     <Container>

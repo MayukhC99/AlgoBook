@@ -3,7 +3,7 @@ import { UserContext } from '../../Context/UserContext'
 import { Container, Row, Col } from 'react-bootstrap'
 
 export default function DetailsComp() {
-    const { loginFlag } = useContext(UserContext)
+    const { userDetails } = useContext(UserContext)
     const [showSaveButton, setShowSaveButton] = useState("")
 
     const editDetails = (e) => {
@@ -23,7 +23,7 @@ export default function DetailsComp() {
                     <button className="ml-3" style={{ color: 'blue', padding: '0' }} onClick={editDetails}>Edit</button>
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="text" value={loginFlag.user.username} readOnly disabled />
+                    <input type="text" value={userDetails.user.username} readOnly disabled />
                 </Col>
             </Row>
             <Row className="mt-3 mb-3" id="first_name">
@@ -32,7 +32,7 @@ export default function DetailsComp() {
                     <button className="ml-3" style={{ color: 'blue', padding: '0' }} onClick={editDetails}>Edit</button>
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="text" value={loginFlag.user.first_name} readOnly />
+                    <input type="text" value={userDetails.user.first_name} readOnly />
                 </Col>
             </Row>
             {
@@ -52,7 +52,7 @@ export default function DetailsComp() {
                     <button className="ml-3" style={{ color: 'blue', padding: '0' }} onClick={editDetails}>Edit</button>
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="text" value={loginFlag.user.last_name} readOnly />
+                    <input type="text" value={userDetails.user.last_name} readOnly />
                 </Col>
             </Row>
             {
@@ -72,7 +72,7 @@ export default function DetailsComp() {
                     <button className="ml-3" style={{ color: 'blue', padding: '0' }} onClick={editDetails}>Edit</button>
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="text" value={loginFlag.user.email_id} readOnly />
+                    <input type="text" value={userDetails.user.email_id} readOnly />
                 </Col>
             </Row>
             {
