@@ -98,18 +98,16 @@ function App() {
     }
 
     const changeDetails = (data) => {
-        axios.post("/api/account/edit", data)
-            .then(res => {
-                if (!res.data.error) {
-                    setUserDetails(prev => {
-                        const newData = prev
-                        newData.user.first_name = res.data.first_name
-                        newData.user.last_name = res.data.last_name
-                        newData.user.email_id = res.data.email_id
-                        return newData
-                    })
-                }
-            })
+        axios.post('/api/account/edit', data)
+        .then(res => {
+            const data = res.data || {};
+            if ( data.error ){
+                alert('There has been an error while updating your details. Please try again.')
+            } else if (res.data) {
+                alert('Details successfully updated');
+                window.location.href='/';
+            }
+        })
     }
 
     // const providerValue = useMemo(() => ({ cardData, Favorites, addFavorite, removeFavorite }), [])
