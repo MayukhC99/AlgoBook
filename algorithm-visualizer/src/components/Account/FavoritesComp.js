@@ -21,7 +21,7 @@ export default function FavoritesComp() {
                                 Favorites.indexOf(item.title) !== -1 &&
                                 <Col xs={12} md={6} lg={4} key={item.id} >
                                     <Card style={{ width: '18rem', margin: '20px auto' }}>
-                                        <Card.Img variant="top" src="/img/Carousel1.jpeg" />
+                                        <Card.Img variant="top" src={`/img/${item.title.replace(/ /g, "_")}.png`} />
                                         <OverlayTrigger
                                             placement="top"
                                             overlay={

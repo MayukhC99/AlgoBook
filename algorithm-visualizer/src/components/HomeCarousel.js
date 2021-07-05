@@ -7,7 +7,7 @@ export default function HomeCarousel() {
                 <Carousel.Item interval={2000} style={{ height: 'calc(100vh - 150px)', minHeight: '450px', overflow: 'hidden' }}>
                     <img
                         className="d-block w-100"
-                        src="/img/Carousel1.jpeg"
+                        src="/img/Binary_Search_Algorithm.png"
                         alt="First slide"
                         style={{ height: '100%', width: '100%', objectFit: 'cover' }}
                     />
@@ -19,7 +19,7 @@ export default function HomeCarousel() {
                 <Carousel.Item interval={2000} style={{ height: 'calc(100vh - 150px)', minHeight: '450px', overflow: 'hidden' }}>
                     <img
                         className="d-block w-100"
-                        src="/img/Carousel2.jpeg"
+                        src="/img/Kruskal's_Minimal_Spanning_Tree.png"
                         alt="Second slide"
                         style={{ height: '100%', width: '100%', objectFit: 'cover' }}
                     />
@@ -31,7 +31,7 @@ export default function HomeCarousel() {
                 <Carousel.Item interval={2000} style={{ height: 'calc(100vh - 150px)', minHeight: '450px', overflow: 'hidden' }}>
                     <img
                         className="d-block w-100"
-                        src="/img/Carousel3.png"
+                        src="/img/Sorting_Visualizer.png"
                         alt="Third slide"
                         style={{ height: '100%', width: '100%', objectFit: 'cover' }}
                     />

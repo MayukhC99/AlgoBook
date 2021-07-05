@@ -113,7 +113,7 @@ function App() {
         axios.post('/api/root/upload/profile_image', data)
             .then(res => {
                 if (res.data.file) {
-                    setuserDetails(prev => {
+                    setUserDetails(prev => {
                         const newData = prev
                         newData.user.profile_picture = res.data.file
                         return newData
@@ -126,7 +126,7 @@ function App() {
         axios.post('/api/root/upload/cover_image', data)
             .then(res => {
                 if (res.data.file) {
-                    setuserDetails(prev => {
+                    setUserDetails(prev => {
                         const newData = prev
                         newData.user.cover_picture = res.data.file
                         return newData
@@ -135,11 +135,11 @@ function App() {
             })
     }
 
-    const changeDetails = (key, value) => {
+    const changeDetails = (data) => {
 
     }
 
-    const changePassword = () => {
+    const changePassword = (data) => {
 
     }
 

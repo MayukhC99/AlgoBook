@@ -3,7 +3,18 @@ import { UserContext } from '../../Context/UserContext'
 import { Container, Row, Col } from 'react-bootstrap'
 
 export default function ChangePasswordComp() {
-    const { userDetails, changePassword } = useContext(UserContext)
+    const { changePassword } = useContext(UserContext)
+
+    const submitHandler = () => {
+        const currentPassword = document.getElementById("currentPassword").value
+        const newPassword = document.getElementById("newPassword").value
+        if (currentPassword === newPassword) {
+            changePassword(newPassword)
+        } else {
+            alert("Passwords not matching")
+        }
+    }
+
     return (
         <Container>
             <Row className="mt-3 mb-3">
@@ -11,7 +22,7 @@ export default function ChangePasswordComp() {
                     Current Password
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="password" placeholder="Enter current password" />
+                    <input type="password" id="currentPassword" placeholder="Enter current password" />
                 </Col>
             </Row>
             <Row className="mt-3 mb-3">
@@ -19,8 +30,11 @@ export default function ChangePasswordComp() {
                     New Password
                 </Col>
                 <Col xs={12} sm={6} md={4}>
-                    <input type="password" placeholder="Enter new password" />
+                    <input type="password" id="newPassword" placeholder="Enter new password" />
                 </Col>
+            </Row>
+            <Row>
+                <button className="btn btn-primary" onClick={submitHandler}>Save</button>
             </Row>
         </Container>
     )
