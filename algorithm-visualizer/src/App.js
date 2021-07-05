@@ -112,15 +112,35 @@ function App() {
     const changeProfileImg = (data) => {
         axios.post('/api/root/upload/profile_image', data)
             .then(res => {
-                console.log(res.data)
                 if (res.data.file) {
                     setLoginFlag(prev => {
                         const newData = prev
-                        newData.profile_picture = res.data.file
+                        newData.user.profile_picture = res.data.file
                         return newData
                     })
                 }
             })
+    }
+
+    const changeCoverImg = (data) => {
+        axios.post('/api/root/upload/cover_image', data)
+            .then(res => {
+                if (res.data.file) {
+                    setLoginFlag(prev => {
+                        const newData = prev
+                        newData.user.cover_picture = res.data.file
+                        return newData
+                    })
+                }
+            })
+    }
+
+    const changeDetails = (key, value) => {
+
+    }
+
+    const changePassword = () => {
+
     }
 
     // const providerValue = useMemo(() => ({ cardData, Favorites, addFavorite, removeFavorite }), [])
@@ -130,7 +150,7 @@ function App() {
             <Router>
                 <NavBar loginFlag={userDetails} />
                 <Switch>
-                    <UserContext.Provider value={{ loginFlag, changeProfileImg }} >
+                    <UserContext.Provider value={{ loginFlag, changeProfileImg, changeCoverImg, changeDetails, changePassword }} >
                         <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
                             <Route exact path="/" component={Home} />
                             <Route path="/home" component={Home} />

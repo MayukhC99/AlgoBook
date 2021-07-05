@@ -17,12 +17,16 @@ const user = new Schema({
     profile_picture: {
         type: String,
         default: '000.png'
+    },
+    cover_picture: {
+        type: String,
+        default: 'cover_pic.png'
     }
-},{
+}, {
     timestamps: true
 })
 
-const users = moongose.model('user',user);
+const users = moongose.model('user', user);
 
 module.exports = {
     users

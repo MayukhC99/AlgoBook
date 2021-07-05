@@ -30,8 +30,7 @@
 }
 
 .cameraIcon {
-  position: absolute;
-  right: 10%;
+  float: right;
   cursor: pointer;
   background-color: white;
   width: 40px;
@@ -80,9 +79,13 @@
   background-color: rgba(68, 68, 68, 0.5);
 }
 
-#upload_btn {
+button {
   background-color: transparent;
   outline: none;
+  border: none;
+}
+
+input {
   border: none;
 }
 
