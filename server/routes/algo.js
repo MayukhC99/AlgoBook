@@ -29,14 +29,14 @@ route.post('/add/fav', async (req, res) => {
     }
 })
 
-route.get('/undo/fav', async (req, res) => {
+route.post('/undo/fav', async (req, res) => {
     try {
-        if(req.user) {
-            const removedAlgo = await favourites.findOneAndRemove({'username': req.user.username})
+        if(req.user && req.body.id) {
+            const removedAlgo = await favourites.findOneAndRemove({'username': req.user.username, 'algoId': req.body.id});
             console.log('successfully removed: ' + removedAlgo);
             return res.json({'status': 'success', 'data': removedAlgo});
         }
-        return res.json({'status': 'user not logged in'});
+        return res.json({'status': 'user not logged in or id not passed'});
     } catch(error) {
         console.log('Error occured while deleting a fav: ' + error);
         return res.json({'error': 'Error occured while deleting a fav item'});
@@ -48,7 +48,7 @@ route.get('/get/fav', async (req, res) => {
     try {
         const data = [];
         if (req.user){
-            data = await algorithms.find({'username': req.user.username})
+            data = await favourites.find({'username': req.user.username})
         } else {
             console.log(`User doesn't exists`);
         }
