@@ -2,7 +2,7 @@ import { Navbar, Nav, Dropdown } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 
 
-export default function NavBar({ loginFlag }) {
+export default function NavBar({ userDetails }) {
 
     return (
         <div id="home">
@@ -16,14 +16,14 @@ export default function NavBar({ loginFlag }) {
                         </NavLink>
                         <Nav.Link href="#visualizer">Visulizer</Nav.Link>
                         {
-                            loginFlag ?
+                            userDetails ?
                                 <>
                                     <NavLink className="nav-link" activeClassName="is-active" to="/chat_room">
                                         Chat Room
                                     </NavLink>
                                     <Dropdown>
                                         <Dropdown.Toggle variant="light" id="dropdown-basic">
-                                            {loginFlag.user.first_name}
+                                            {userDetails.user.first_name}
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu style={{ left: '-50px' }}>
                                             <Dropdown.Item as="button">

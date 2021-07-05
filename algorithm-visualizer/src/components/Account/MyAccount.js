@@ -9,14 +9,14 @@ import { faCamera, faCloudUploadAlt, faTrash } from "@fortawesome/fontawesome-fr
 import './account.css'
 
 export default function MyAccount() {
-    const { loginFlag, changeProfileImg, changeCoverImg } = useContext(UserContext)
-    const [profilePicSrc, setProfilePicSrc] = useState(`/img/${loginFlag.user.profile_picture}`)
-    const [coverPicSrc, setCoverPicSrc] = useState(`/img/${loginFlag.user.cover_picture}`)
+    const { userDetails, changeProfileImg, changeCoverImg } = useContext(UserContext)
+    const [profilePicSrc, setProfilePicSrc] = useState(`/img/${userDetails.user.profile_picture}`)
+    const [coverPicSrc, setCoverPicSrc] = useState(`/img/${userDetails.user.cover_picture}`)
     const [saveCancelButton, setSaveCancelButton] = useState(false)
     const [coverSaveCancelButton, setCoverSaveCancelButton] = useState(false)
 
-    const currentProfilePic = `/img/${loginFlag.user.profile_picture}`
-    const currentCoverPic = `/img/${loginFlag.user.cover_picture}`
+    const currentProfilePic = `/img/${userDetails.user.profile_picture}`
+    const currentCoverPic = `/img/${userDetails.user.cover_picture}`
 
     const changePhotoHandler = async (e) => {
         const file = e.target.files[0];
@@ -116,7 +116,7 @@ export default function MyAccount() {
                 </Row>
                 <Row>
                     <Col>
-                        <h4>{loginFlag.user.first_name + " " + loginFlag.user.last_name}</h4>
+                        <h4>{userDetails.user.first_name + " " + userDetails.user.last_name}</h4>
                     </Col>
                 </Row>
                 <hr />
