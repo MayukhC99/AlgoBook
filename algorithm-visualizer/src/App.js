@@ -14,72 +14,6 @@ import MyAccount from './components/Account/MyAccount'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import './App.css';
 
-// const cardData = [
-//     {
-//         id: 1,
-//         title: `Breadth First and Depth First Algorithms`,
-//         body: `A simple simulation of Breadth First Traversal and Depth First traversal
-//           on an undirected graph created by the user.`,
-//         name: `BFS and DFS`,
-//         type: "graph",
-//         link: "/graphVisualizer/bfsdfs"
-//     },
-//     {
-//         id: 2,
-//         title: `Dijkstra's Shortest Path Algorithm`,
-//         body: `A simulation of Djikstra's Shortest Path Algorithm and finding the shortest
-//           paths from the chosen source vertex to all the nodes.`,
-//         name: `Dijkstra's Algorithm`,
-//         type: "graph",
-//         link: "/graphVisualizer/dijkstra"
-//     },
-//     {
-//         id: 3,
-//         title: `Kruskal's Minimal Spanning Tree`,
-//         body: `A simple simulation Kruskal's Algorithm for finding the Minimal Spanning
-//           Tree of a connected undirected weighted graph.`,
-//         name: `Kruskal's MST`,
-//         type: "graph",
-//         link: "/graphVisualizer/KruskalMST"
-//     },
-//     {
-//         id: 4,
-//         title: `Linear Search Algorithm`,
-//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-//           for understanding them better.`,
-//         name: `Linear Search`,
-//         type: "searching",
-//         link: "/searchingVisualizer/linearsearch"
-//     },
-//     {
-//         id: 5,
-//         title: `Binary Search Algorithm`,
-//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-//           for understanding them better.`,
-//         name: `Binary Search`,
-//         type: "searching",
-//         link: "/searchingVisualizer/binarysearch"
-//     },
-//     {
-//         id: 6,
-//         title: `Interpolation Search Algorithm`,
-//         body: `A simple simulation of Linear Search and Binary Search on an array of integers meant
-//           for understanding them better.`,
-//         name: `Interpolation Search`,
-//         type: "searching",
-//         link: "/searchingVisualizer/interpolationsearch"
-//     },
-//     {
-//         id: 7,
-//         title: `Sorting Visualizer`,
-//         body: `Simulation of Bubble Sort, Selection Sort, Insertion Sort, Merge Sort and Quick Sort on
-//           randomly chosen data values.`,
-//         name: `Sorting Algorithms`,
-//         type: "sorting",
-//         link: "/sortingVisualizer"
-//     },
-// ]
-
 function App() {
 
     const [cardData, setCardData] = useState([])
@@ -105,14 +39,14 @@ function App() {
 
     const changeFavIcons = (e) => {
         if ('favId' in e.target.dataset) {
-            if (Favorites.indexOf(e.target.dataset.favId) !== -1) {
-                setFavorites(prev => prev.filter(item => item !== e.target.dataset.favId))
+            if (Favorites.find(o => o.algoId == e.target.dataset.favId) !== undefined) {
+                removeFromFavorites(e.target.dataset.favId)
             } else {
                 addToFavorites(e.target.dataset.favId)
             }
         } else if ('favId' in e.target.parentNode.dataset) {
-            if (Favorites.indexOf(e.target.parentNode.dataset.favId) !== -1) {
-                setFavorites(prev => prev.filter(item => item !== e.target.parentNode.dataset.favId))
+            if (Favorites.find(o => o.algoId == e.target.parentNode.dataset.favId) !== undefined) {
+                removeFromFavorites(e.target.parentNode.dataset.favId)
             } else {
                 addToFavorites(e.target.parentNode.dataset.favId)
             }
@@ -122,14 +56,20 @@ function App() {
     const addToFavorites = (id) => {
         axios.post("/api/algo/add/fav", { id })
             .then(res => {
-                if (res.data.status === "success") {
-                    setFavorites(prev => [...prev, id])
+                if (res.data.status && res.data.status === "success") {
+                    console.log(res.data.data)
+                    setFavorites(prev => [...prev, res.data.data])
                 }
             })
     }
 
     const removeFromFavorites = (id) => {
-
+        axios.post("/api/algo/undo/fav", { id })
+            .then(res => {
+                if (res.data.status && res.data.status === "success") {
+                    setFavorites(prev => prev.filter(item => item.algoId != id))
+                }
+            })
     }
 
     const changeProfileImg = (data) => {
