@@ -9,7 +9,8 @@ route.post('/getin',passport.authenticate('local', {
 
 route.get('/logout',(req,res)=>{
     req.logout();
-    res.redirect('/');
+    console.log('logged out: ', req.user);
+    return res.json({'status': 'logged out'});
 })
 
 route.get('/failure',(req,res)=>{

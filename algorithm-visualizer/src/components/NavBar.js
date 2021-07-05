@@ -1,9 +1,17 @@
+import axios from 'axios'
 import { Navbar, Nav, Dropdown } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import logo from '../assets/img/logo.png'
 
 
 export default function NavBar({ userDetails }) {
+
+    const logoutCb = () => {
+        axios.get('/api/login/logout')
+        .then(res => {
+            window.location.href='/';
+        })
+    }
 
     return (
         <div id="home">
@@ -33,7 +41,7 @@ export default function NavBar({ userDetails }) {
                                                 <NavLink to="/account" style={{ color: 'black', textDecoration: 'none' }}>My Account</NavLink>
                                             </Dropdown.Item>
                                             <Dropdown.Item as="button">
-                                                <NavLink to="/logout" style={{ color: 'black', textDecoration: 'none' }}>Logout</NavLink>
+                                                <div onClick={logoutCb} style={{ color: 'black', textDecoration: 'none' }}>Logout</div>
                                             </Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown>

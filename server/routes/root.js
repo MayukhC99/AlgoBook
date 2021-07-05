@@ -115,6 +115,7 @@ route.post('/upload/cover_image', (req, res) => {
 })
 
 route.get('/verify_user', (req, res) => {
+    console.log(`Trying for varification of ${req.user}`);
     if (req.user) {
         if (req.user.username === 'admin') {
             return res.json({ 'user': req.user });
