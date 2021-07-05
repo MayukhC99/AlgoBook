@@ -98,7 +98,18 @@ function App() {
     }
 
     const changeDetails = (data) => {
-
+        axios.post("/api/account/edit", data)
+            .then(res => {
+                if (!res.data.error) {
+                    setUserDetails(prev => {
+                        const newData = prev
+                        newData.user.first_name = res.data.first_name
+                        newData.user.last_name = res.data.last_name
+                        newData.user.email_id = res.data.email_id
+                        return newData
+                    })
+                }
+            })
     }
 
     // const providerValue = useMemo(() => ({ cardData, Favorites, addFavorite, removeFavorite }), [])
