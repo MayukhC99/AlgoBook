@@ -7,100 +7,73 @@ import './chat.css'
 const chatListData = [
     {
         id: 0,
-        name: "Graph Algorithm",
-        messages: [
-            {
-                id: 10,
-                user: "Mayukh",
-                text: "Hi"
-            },
-            {
-                id: 11,
-                user: "You",
-                text: "Hello"
-            },
-            {
-                id: 12,
-                user: "Udita",
-                text: "Hi"
-            },
-            {
-                id: 13,
-                user: "Rashmi",
-                text: "Hi"
-            },
-            {
-                id: 14,
-                user: "You",
-                text: "Nice"
-            }
-        ]
+        name: "Basic computation",
+        messages: []
     },
     {
         id: 1,
-        name: "Searching Algorithm",
-        messages: [
-            {
-                id: 20,
-                user: "Mayukh",
-                text: "Hi"
-            },
-            {
-                id: 21,
-                user: "You",
-                text: "Hello"
-            },
-            {
-                id: 22,
-                user: "Udita",
-                text: "Hi"
-            }
-        ]
+        name: "Dynamic Programming",
+        messages: []
     },
     {
         id: 2,
-        name: "Sorting Algorithm",
-        messages: [
-            {
-                id: 30,
-                user: "Mayukh",
-                text: "Hi"
-            },
-            {
-                id: 31,
-                user: "You",
-                text: "Hello"
-            },
-            {
-                id: 32,
-                user: "Udita",
-                text: "Hi"
-            },
-            {
-                id: 33,
-                user: "Rashmi",
-                text: "Hi"
-            }
-        ]
+        name: "Greedy Algorithms",
+        messages: []
+    },
+    {
+        id: 3,
+        name: "Graph Algorithms",
+        messages: []
+    },
+    {
+        id: 4,
+        name: "Searching Algorithms",
+        messages: []
+    },
+    {
+        id: 5,
+        name: "Sorting Algorithms",
+        messages: []
+    },
+    {
+        id: 6,
+        name: "Add-hoc problems",
+        messages: []
     }
 ]
 
 const messageTyped = [
     {
-        name: "Graph Algorithm",
+        name: "Basic computation",
         message: ""
     },
     {
-        name: "Searching Algorithm",
+        name: "Dynamic Programming",
         message: ""
     },
     {
-        name: "Sorting Algorithm",
+        name: "Greedy Algorithms",
+        message: ""
+    },
+    {
+        name: "Graph Algorithms",
+        message: ""
+    },
+    {
+        name: "Searching Algorithms",
+        message: ""
+    },
+    {
+        name: "Sorting Algorithms",
+        message: ""
+    },
+    {
+        name: "Add-hoc problems",
         message: ""
     }
 ]
 
-export default function ChatComponent() {
+export default function ChatComponent({ userDetails }) {
 
     const [isSmall, setIsSmall] = useState(false)
     const [targetComp, setTargetComp] = useState('')
@@ -154,13 +127,13 @@ export default function ChatComponent() {
                         </Col>
                         :
                         <Col className="p-0" sm={6} md={7} lg={8}>
-                            <ChatScreen targetComp={targetComp} messages={messages} addMessage={addMessage} messageTyped={messageTyped} isSmall={isSmall} changeTargetComp={changeTargetComp} />
+                            <ChatScreen userDetails={userDetails} targetComp={targetComp} messages={messages} addMessage={addMessage} messageTyped={messageTyped} isSmall={isSmall} changeTargetComp={changeTargetComp} />
                         </Col>
                 }
                 {
                     !isSmall &&
                     <Col className="p-0" sm={6} md={7} lg={8}>
-                        <ChatScreen targetComp={targetComp} messages={messages} addMessage={addMessage} messageTyped={messageTyped} isSmall={isSmall} />
+                        <ChatScreen userDetails={userDetails} targetComp={targetComp} messages={messages} addMessage={addMessage} messageTyped={messageTyped} isSmall={isSmall} />
                     </Col>
                 }
             </Row>

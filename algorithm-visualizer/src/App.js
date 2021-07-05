@@ -84,7 +84,7 @@ const favIcons = [`Interpolation Search Algorithm`, `Sorting Visualizer`]
 function App() {
 
     const [Favorites, setFavorites] = useState(favIcons)
-    const [loginFlag, setLoginFlag] = useState(null)
+    const [userDetails, setUserDetails] = useState(null)
 
     useEffect(() => {
         axios.get("/api/root/verify_user")
@@ -148,7 +148,7 @@ function App() {
     return (
         <div className="App">
             <Router>
-                <NavBar loginFlag={loginFlag} />
+                <NavBar loginFlag={userDetails} />
                 <Switch>
                     <UserContext.Provider value={{ loginFlag, changeProfileImg, changeCoverImg, changeDetails, changePassword }} >
                         <CardContext.Provider value={{ cardData, Favorites, changeFavIcons }} >
