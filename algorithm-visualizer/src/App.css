@@ -15,6 +15,7 @@
   justify-content: center;
   align-items: center;
   background: #fff no-repeat center;
+  background-image: url('./assets/img/logo.png');
   background-size: 100px 100px;
   z-index: 10000;
 }
