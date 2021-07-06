@@ -10,8 +10,8 @@ import './account.css'
 
 export default function MyAccount() {
     const { userDetails, changeProfileImg, changeCoverImg } = useContext(UserContext)
-    const [profilePicSrc, setProfilePicSrc] = useState(`/img/${userDetails.user.profile_picture}`)
-    const [coverPicSrc, setCoverPicSrc] = useState(`/img/${userDetails.user.cover_picture}`)
+    const [profilePicSrc, setProfilePicSrc] = useState(userDetails.user.profile_picture)
+    const [coverPicSrc, setCoverPicSrc] = useState(userDetails.user.cover_picture)
     const [saveCancelButton, setSaveCancelButton] = useState(false)
     const [coverSaveCancelButton, setCoverSaveCancelButton] = useState(false)
 
@@ -19,8 +19,8 @@ export default function MyAccount() {
     let currentCoverPic;
 
     useEffect(() => {
-        currentProfilePic = `/img/${userDetails.user.profile_picture}`
-        currentCoverPic = `/img/${userDetails.user.cover_picture}`
+        currentProfilePic = userDetails.user.profile_picture
+        currentCoverPic = userDetails.user.cover_picture
     })
 
     const changePhotoHandler = async (e) => {

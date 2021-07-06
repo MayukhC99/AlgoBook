@@ -16,8 +16,9 @@ export default function DetailsComp() {
             email_id: emailId
         }
         changeDetails(data)
-        showSaveButton(false)
+        setShowSaveButton(false)
     }
+
 
     return (
         <Container style={{ display: "block" }}>

@@ -16,12 +16,14 @@ const user = new Schema({
     email_id: String,
     profile_picture: {
         type: String,
-        default: '000.png'
+        default: '/img/000.png'
     },
+    profile_cloudinary_id: String,
     cover_picture: {
         type: String,
-        default: 'cover_pic.png'
-    }
+        default: '/img/cover_pic.png'
+    },
+    cover_cloudinary_id: String
 }, {
     timestamps: true
 })
