@@ -76,8 +76,9 @@ function App() {
             .then(res => {
                 if (res.data.file) {
                     setUserDetails(prev => {
-                        const newData = prev
+                        const newData = JSON.parse(JSON.stringify(prev))
                         newData.user.profile_picture = res.data.file
+                        newData.user.profile_cloudinary_id = res.data.cloudinary_id
                         return newData
                     })
                 }
@@ -89,8 +90,9 @@ function App() {
             .then(res => {
                 if (res.data.file) {
                     setUserDetails(prev => {
-                        const newData = prev
+                        const newData = JSON.parse(JSON.stringify(prev))
                         newData.user.cover_picture = res.data.file
+                        newData.user.cover_cloudinary_id = res.data.cloudinary_id
                         return newData
                     })
                 }
@@ -102,7 +104,7 @@ function App() {
             .then(res => {
                 if (!res.data.error) {
                     setUserDetails(prev => {
-                        const newData = prev
+                        const newData = JSON.parse(JSON.stringify(prev))
                         newData.user.first_name = res.data.first_name
                         newData.user.last_name = res.data.last_name
                         newData.user.email_id = res.data.email_id
@@ -117,7 +119,7 @@ function App() {
     return (
         <div className="App">
             {
-                cardData.length ?
+                (cardData.length && userDetails != null) ?
                     <Router>
                         <NavBar userDetails={userDetails} />
                         <Switch>
