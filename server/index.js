@@ -1,5 +1,6 @@
 const express = require('express');
 const expressSession = require('express-session');
+var cookieParser = require("cookie-parser");
 const dotenv = require('dotenv');
 const passport = require('./passport').passport;
 const path = require('path');
@@ -14,12 +15,13 @@ require('../config/connection_db').connect_with_mongoDB();
 const app = express();
 const port = process.env.PORT || 8000;
 
-const server= http.createServer(app);
+const server = http.createServer(app);
 const io = require('socket.io')(server);
 //Include Socket to function anonymously 
 require('./webSocket')(io)
 
 //decrypting json and urlencoded
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -42,8 +44,8 @@ app.use('/api/algo', require('./routes/algo').route);
 app.use('/api/account', require('./routes/account').route);
 app.use('/api/dbSetup', require('./routes/dbSetup').route);
 
-app.get('/*',(req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.resolve(__dirname + '/../algorithm-visualizer/build/index.html'));
 })
 
-server.listen(port,()=>{console.log(`Mode: ${process.env.NodeEnv} hosted on port ${port}`)});
+server.listen(port, () => { console.log(`Mode: ${process.env.NodeEnv} hosted on port ${port}`) });
