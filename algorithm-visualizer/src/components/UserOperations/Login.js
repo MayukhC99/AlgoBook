@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from 'react-router-dom'
 import styled from "styled-components";
 import logo from "../../assets/img/logo.png";
 import Input from "./Input";
@@ -18,6 +19,7 @@ const Login = ({ setLoginPage }) => {
         <Input type="password" name="password" placeholder="Password" />
         <button type="submit">Login</button>
       </Form>
+      <NavLink to="/forgotPassword" style={{ margin: '-15px 0 0 0' }} >Forgot Password?</NavLink>
       <div>
         <h4>
           Don't have an account? <span onClick={() => setLoginPage(false)}>Sign Up</span>

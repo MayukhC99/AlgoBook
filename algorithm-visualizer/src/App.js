@@ -9,6 +9,8 @@ import SearchingVisualizer from './components/Searching/SearchingVisualizer'
 import SortingVisualizer from './components/Sorting/SortingVisualizer'
 import ChatComponent from './components/Chat_Room/ChatComponent'
 import UserForm from './components/UserOperations/UserForm'
+import ForgotPassword from './components/UserOperations/ForgotPassword'
+import ResetPassword from './components/UserOperations/ResetPassword'
 import MyAccount from './components/Account/MyAccount'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import './App.css';
@@ -133,6 +135,8 @@ function App() {
                                     <Route path="/chat_room" component={ChatComponent} />
                                     <Route path="/signIn" render={() => <UserForm loginFlag={true} />} />
                                     <Route path="/signUp" render={() => <UserForm loginFlag={false} />} />
+                                    <Route path="/forgotPassword" component={ForgotPassword} />
+                                    <Route path="/reset_password" component={ResetPassword} />
                                     <Route path="/account" component={MyAccount} />
                                     {/* <Redirect to="/home"></Redirect> */}
                                 </CardContext.Provider>

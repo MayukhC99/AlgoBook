@@ -11,7 +11,7 @@ const UserForm = ({ loginFlag }) => {
 
   return (
     <Container>
-      <Wrapper>
+      <Wrapper style={loginPage ? { minHeight: '500px' } : { minHeight: '800px' }}>
         {loginPage ? (
           <Login setLoginPage={setLoginPage} />
         ) : (
@@ -26,7 +26,7 @@ const UserForm = ({ loginFlag }) => {
 const Container = styled.div`
   background: #eefcff;
   position: absolute;
-  top: 0;
+  top: 76px;
   left: 0;
   bottom: 0;
   right: 0;
