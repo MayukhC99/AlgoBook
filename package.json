@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NodeEnv=Production node server/index.js",
     "dev": "cross-env NodeEnv=Development nodemon server/index.js",
-    "build": "cd algorithm-visualizer && npm install && npm run build",
-    "build-dev": "cd algorithm-visualizer && npm run build"
+    "bootstrap": "npm install && npm run front-end-build",
+    "front-end-build": "cd algorithm-visualizer && npm install && npm run build",
+    "front-end-build-dev": "cd algorithm-visualizer && npm run build"
   },
   "keywords": [],
   "author": "",
