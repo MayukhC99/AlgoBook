@@ -7,8 +7,8 @@ export default function GraphVisualizer() {
     return (
         <Switch>
             <Route path='/graphVisualizer/bfsdfs' component={Canvas} />
-            <Route path='/graphVisualizer/dijkstra' component={ShortestPath} />
-            <Route path='/graphVisualizer/PrimMST' component={ShortestPath} />
+            <Route path='/graphVisualizer/dijkstra' selectedGraph='dijkstra' component={ShortestPath} />
+            <Route path='/graphVisualizer/PrimMST' selectedGraph='prims' component={ShortestPath} />
             <Route path='/graphVisualizer/KruskalMST' component={MST} />
             <Redirect to="/home#visualizer" />
         </Switch>
