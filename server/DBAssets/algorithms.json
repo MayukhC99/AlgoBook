@@ -16,6 +16,14 @@
         "link": "/graphVisualizer/dijkstra"
     },
     {
+        "id": 8,
+        "title": "Prim's Minimal Spanning Tree",
+        "body": "A simulation of Prim's Algorithm for finding the Minimal Spanning\nTree of a connected undirected weighted graph.",
+        "name": "Prim's Algorithm",
+        "type": "graph",
+        "link": "/graphVisualizer/prims"
+    },
+    {
         "id": 3,
         "title": "Kruskal's Minimal Spanning Tree",
         "body": "A simple simulation Kruskal's Algorithm for finding the Minimal Spanning\nTree of a connected undirected weighted graph.",
