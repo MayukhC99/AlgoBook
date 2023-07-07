@@ -9,10 +9,10 @@ export default function GraphVisualizer() {
             <Route path='/graphVisualizer/bfsdfs' component={Canvas} />
             <Route path='/graphVisualizer/dijkstra'>
                 <ShortestPath selectedGraph='dijkstra' />
-            <Route />
+            </Route>
             <Route path='/graphVisualizer/prims'>
                 <ShortestPath selectedGraph='prims' />
-            <Route />
+            </Route>
             <Route path='/graphVisualizer/KruskalMST' component={MST} />
             <Redirect to="/home#visualizer" />
         </Switch>
